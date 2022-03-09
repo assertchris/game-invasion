@@ -38,21 +38,26 @@ func get_room_layout() -> Array:
 func add_room_tiles(parent, layout: Array) -> void:
 	for y in range(Constants.tiles_width):
 		for x in range(Constants.tiles_width):
-			if layout[y][x] != Constants.tiles_types.road:
+			if Constants.tiles_is_not_tile.has(layout[y][x]):
 				continue
 
-			var type = parent.tile_set.find_tile_by_name(Constants.tiles_road_name)
-			parent.set_cell(x, y, type)
+			var name = Constants.tiles_set_names[layout[y][x]]
+			var id = parent.tile_set.find_tile_by_name(name)
+			parent.set_cell(x, y, id)
 
 func add_room_doodads(parent, layout: Array) -> void:
 	for y in range(Constants.tiles_width):
 		for x in range(Constants.tiles_width):
-			if layout[y][x] == Constants.tiles_types.none or layout[y][x] == Constants.tiles_types.road:
+			if Constants.tiles_is_not_doodad.has(layout[y][x]):
 				continue
 
 			var doodad = Constants.tiles_doodads[layout[y][x]].instance()
 			parent.add_child(doodad)
-			doodad.position = Vector2(x * 12, y * 12)
+
+			doodad.position = Vector2(
+				x * Constants.sprites_width,
+				y * Constants.sprites_width
+			)
 
 func make_rooms(parent):
 	randomize()

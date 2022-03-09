@@ -30,7 +30,9 @@ onready var tiles_doodads := {
 	tiles_types.house: house_doodad,
 }
 
-const tiles_road_name := "roads"
+const tiles_set_names := {
+	tiles_types.road: "roads",
+}
 
 const rooms_total := 9
 
@@ -39,3 +41,17 @@ enum rooms_types {
 	normal,
 	last,
 }
+
+const tiles_is_not_doodad := [
+	tiles_types.none,
+	tiles_types.road,
+]
+
+const tiles_is_not_tile := [
+	tiles_types.none,
+	tiles_types.tree,
+	tiles_types.grave,
+	tiles_types.house,
+]
+
+const sprites_width := 12

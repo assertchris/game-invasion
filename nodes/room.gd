@@ -5,6 +5,7 @@ onready var _doodads := $Doodads
 
 func _ready() -> void:
 	var layout = Generation.get_room_layout()
+
 	Generation.add_room_tiles(_roads, layout)
 	Generation.add_room_doodads(_doodads, layout)
 
