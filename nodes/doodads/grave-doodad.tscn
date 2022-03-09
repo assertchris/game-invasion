@@ -1,0 +1,14 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://images/sprites.png" type="Texture" id=1]
+[ext_resource path="res://nodes/doodads/doodad.tscn" type="PackedScene" id=2]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 1 )
+region = Rect2( 64, 0, 8, 8 )
+
+[node name="GraveDoodad" instance=ExtResource( 2 )]
+script = null
+
+[node name="Sprite" type="Sprite" parent="." index="0"]
+texture = SubResource( 1 )
