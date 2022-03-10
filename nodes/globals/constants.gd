@@ -11,6 +11,7 @@ enum tiles_types {
 	grave,
 	house,
 	road,
+	navigable,
 }
 
 const tiles_colors := {
@@ -18,6 +19,7 @@ const tiles_colors := {
 	tiles_types.grave: "71717a",
 	tiles_types.house: "ef4444",
 	tiles_types.road: "a855f7",
+	tiles_types.navigable: "fbbf24",
 }
 
 export var tree_doodad : PackedScene
@@ -32,6 +34,7 @@ onready var tiles_doodads := {
 
 const tiles_set_names := {
 	tiles_types.road: "roads",
+	tiles_types.navigable: "navigable",
 }
 
 const rooms_total := 9
@@ -45,6 +48,7 @@ enum rooms_types {
 const tiles_is_not_doodad := [
 	tiles_types.none,
 	tiles_types.road,
+	tiles_types.navigable,
 ]
 
 const tiles_is_not_tile := [
@@ -55,3 +59,5 @@ const tiles_is_not_tile := [
 ]
 
 const sprites_width := 12
+
+const player_speed = 100.0

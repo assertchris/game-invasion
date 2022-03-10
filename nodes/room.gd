@@ -1,4 +1,4 @@
-extends Node2D
+extends YSort
 
 onready var _roads := $Roads
 onready var _doodads := $Doodads

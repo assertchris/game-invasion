@@ -59,7 +59,7 @@ func add_room_doodads(parent, layout: Array) -> void:
 				y * Constants.sprites_width
 			)
 
-func make_rooms(parent):
+func make_rooms(parent, player):
 	randomize()
 
 	var rooms_left = Constants.rooms_total - 1
@@ -119,6 +119,7 @@ func make_rooms(parent):
 	parent.add_child(Variables.current_room)
 
 	Variables.current_room.visible = true
+	Variables.current_room.add_child(player)
 
 func get_neighbor_positions(position) -> Array:
 	return [
