@@ -40,9 +40,9 @@ const tiles_set_names := {
 const rooms_total := 9
 
 enum rooms_types {
-	first,
-	normal,
-	last,
+	first = 0,
+	normal = 1,
+	last = 2,
 }
 
 const tiles_is_not_doodad := [
@@ -61,3 +61,10 @@ const tiles_is_not_tile := [
 const sprites_width := 12
 
 const player_speed = 100.0
+
+enum neighbours {
+	top = 0,
+	right = 1,
+	bottom = 2,
+	left = 3,
+}

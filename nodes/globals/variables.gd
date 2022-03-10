@@ -1,3 +1,8 @@
 extends Node
 
+var room_position_options := []
+var room_positions_taken := []
+var rooms_made := []
 var current_room : Node2D
+
+var player_last_position : Vector2

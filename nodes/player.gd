@@ -1,6 +1,7 @@
 extends KinematicBody2D
+class_name Player
 
-var path = PoolVector2Array()
+var path := PoolVector2Array()
 
 signal position_changed
 

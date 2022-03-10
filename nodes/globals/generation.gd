@@ -59,28 +59,30 @@ func add_room_doodads(parent, layout: Array) -> void:
 				y * Constants.sprites_width
 			)
 
-func make_rooms(parent, player):
+func make_rooms(parent, player) -> void:
 	randomize()
 
 	var rooms_left = Constants.rooms_total - 1
-	var room_position_options = []
 
-	var rooms_made = []
-	var room_positions_taken = []
+	Variables.room_position_options = []
+	Variables.room_positions_taken = []
+	Variables.rooms_made = []
 
 	var first_room = room_scene.instance()
-	var first_room_position = Vector2(0, 0)
+	first_room.room_position = Vector2(0, 0)
+	first_room.room_type = Constants.rooms_types.first
 
-	rooms_made.push_back([first_room, first_room_position, Constants.rooms_types.first])
-	room_positions_taken.push_back(first_room_position)
+	Variables.room_position_options += get_neighbor_positions(first_room.room_position)
+	Variables.room_positions_taken.push_back(first_room.room_position)
+	Variables.rooms_made.push_back(first_room)
 
-	room_position_options += get_neighbor_positions(first_room_position)
+	var except_array_index = randi() % Variables.room_position_options.size()
+	var except_room_position = Variables.room_position_options[except_array_index]
+	Variables.room_position_options.remove(except_array_index)
 
 	while rooms_left > 0:
-		var array_index = randi() % room_position_options.size()
-		var next_room_position = room_position_options[array_index]
-
-		room_position_options.remove(array_index)
+		var array_index = randi() % Variables.room_position_options.size()
+		var next_room_position = Variables.room_position_options[array_index]
 
 		var next_room_type = Constants.rooms_types.normal
 
@@ -88,38 +90,27 @@ func make_rooms(parent, player):
 			next_room_type = Constants.rooms_types.last
 
 		var next_room = room_scene.instance()
+		next_room.room_position = next_room_position
+		next_room.room_type = next_room_type
 
-		rooms_made.push_back([next_room, next_room_position, next_room_type])
-		room_positions_taken.push_back(next_room_position)
+		Variables.room_positions_taken.push_back(next_room_position)
+		Variables.rooms_made.push_back(next_room)
 
 		var next_room_neighbors = get_neighbor_positions(next_room_position)
 
-		if not room_positions_taken.has(next_room_neighbors[0]):
-			room_position_options.push_back(next_room_neighbors[0])
-
-		if not room_positions_taken.has(next_room_neighbors[1]):
-			room_position_options.push_back(next_room_neighbors[1])
-
-		if not room_positions_taken.has(next_room_neighbors[2]):
-			room_position_options.push_back(next_room_neighbors[2])
-
-		if not room_positions_taken.has(next_room_neighbors[3]):
-			room_position_options.push_back(next_room_neighbors[3])
+		for next_room_option in next_room_neighbors:
+			if not Variables.room_positions_taken.has(next_room_option) and except_room_position != next_room_option:
+				Variables.room_position_options.push_back(next_room_option)
 
 		rooms_left -= 1
 
-	for room in rooms_made:
-		if room[1] == first_room_position:
-			continue
-
-		parent.add_child(room[0])
-		room[0].visible = false
+	for room in Variables.rooms_made:
+		parent.add_child(room)
+		room.visible = false
 
 	Variables.current_room = first_room
-	parent.add_child(Variables.current_room)
-
 	Variables.current_room.visible = true
-	Variables.current_room.add_child(player)
+	Variables.current_room.add_player(player)
 
 func get_neighbor_positions(position) -> Array:
 	return [

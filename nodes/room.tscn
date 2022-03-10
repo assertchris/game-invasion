@@ -1,7 +1,17 @@
-[gd_scene load_steps=3 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://nodes/room.gd" type="Script" id=1]
 [ext_resource path="res://resources/tiles.tres" type="TileSet" id=2]
+[ext_resource path="res://nodes/exit.tscn" type="PackedScene" id=3]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 64, 1.5 )
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 1.5, 64 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 64, 1.5 )
 
 [node name="Room" type="YSort"]
 script = ExtResource( 1 )
@@ -15,3 +25,70 @@ cell_tile_origin = 1
 format = 1
 
 [node name="Doodads" type="YSort" parent="."]
+
+[node name="Exits" type="Node2D" parent="."]
+
+[node name="Top" parent="Exits" instance=ExtResource( 3 )]
+
+[node name="Collider" parent="Exits/Top" index="0"]
+position = Vector2( 66, 0 )
+shape = SubResource( 2 )
+
+[node name="Right" parent="Exits" instance=ExtResource( 3 )]
+
+[node name="Collider" parent="Exits/Right" index="0"]
+position = Vector2( 132, 66 )
+shape = SubResource( 1 )
+
+[node name="Bottom" parent="Exits" instance=ExtResource( 3 )]
+
+[node name="Collider" parent="Exits/Bottom" index="0"]
+position = Vector2( 66, 132 )
+shape = SubResource( 3 )
+
+[node name="Left" parent="Exits" instance=ExtResource( 3 )]
+
+[node name="Collider" parent="Exits/Left" index="0"]
+position = Vector2( 0, 66 )
+shape = SubResource( 1 )
+
+[node name="PlacePositions" type="Node2D" parent="."]
+
+[node name="Top" type="Position2D" parent="PlacePositions"]
+position = Vector2( 29, 8 )
+
+[node name="Right" type="Position2D" parent="PlacePositions"]
+position = Vector2( 124, 30 )
+
+[node name="Bottom" type="Position2D" parent="PlacePositions"]
+position = Vector2( 102, 124 )
+
+[node name="Left" type="Position2D" parent="PlacePositions"]
+position = Vector2( 8, 103 )
+
+[node name="Position" type="Label" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+margin_right = 132.0
+margin_bottom = 132.0
+rect_min_size = Vector2( 132, 132 )
+align = 2
+valign = 2
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="SafetyTimer" type="Timer" parent="."]
+wait_time = 0.1
+one_shot = true
+
+[connection signal="body_entered" from="Exits/Top" to="." method="_on_Top_body_entered"]
+[connection signal="body_entered" from="Exits/Right" to="." method="_on_Right_body_entered"]
+[connection signal="body_entered" from="Exits/Bottom" to="." method="_on_Bottom_body_entered"]
+[connection signal="body_entered" from="Exits/Left" to="." method="_on_Left_body_entered"]
+[connection signal="timeout" from="SafetyTimer" to="." method="_on_SafetyTimer_timeout"]
+
+[editable path="Exits/Top"]
+[editable path="Exits/Right"]
+[editable path="Exits/Bottom"]
+[editable path="Exits/Left"]
