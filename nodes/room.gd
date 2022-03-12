@@ -1,8 +1,11 @@
 extends YSort
 class_name GameRoom
 
+export var survivor_scene : PackedScene
+
 onready var _roads := $Roads
 onready var _doodads := $Doodads
+onready var _survivors := $Survivors
 onready var _top_place_position := $PlacePositions/Top
 onready var _right_place_position := $PlacePositions/Right
 onready var _bottom_place_position := $PlacePositions/Bottom
@@ -12,11 +15,13 @@ onready var _right_arrow := $Arrows/Right
 onready var _bottom_arrow := $Arrows/Bottom
 onready var _left_arrow := $Arrows/Left
 
+var layout : Array
+
 var room_position : Vector2
 var room_type : int
 
 func _ready() -> void:
-	var layout = Generation.get_room_layout()
+	layout = Generation.get_room_layout()
 
 	Generation.add_room_tiles(_roads, layout)
 	Generation.add_room_doodads(_doodads, layout)
@@ -56,9 +61,15 @@ func free_side() -> int:
 
 func add_player(player : Player, move_to : int) -> void:
 	var parent = player.get_parent()
+	var survivors := []
 
 	if parent:
 		parent.remove_child(player)
+
+		for survivor in get_tree().get_nodes_in_group("survivors"):
+			if survivor.is_following_player:
+				survivors.append(survivor)
+				survivor.get_parent().remove_child(survivor)
 
 	# if we add the player without setting this, the player
 	# will enter an exit body before being correctly positioned
@@ -88,6 +99,20 @@ func add_player(player : Player, move_to : int) -> void:
 			player.global_position = Vector2(Variables.player_last_position.x, place_position.y)
 	else:
 		player.global_position = place_position
+
+	for survivor in survivors:
+		_survivors.add_child(survivor)
+
+		survivor.global_position = player.global_position
+
+		var variance = Vector2(
+			rand_range(Constants.survivors_variance / -2, Constants.survivors_variance / 2),
+			rand_range(Constants.survivors_variance / -2, Constants.survivors_variance / 2)
+		)
+
+		var variant_path = Variables.current_navigation.get_simple_path(player.global_position, player.global_position + variance, false)
+
+		survivor.follow(variant_path)
 
 func _on_Top_body_entered(body: Node) -> void:
 	on_body_entered(body, Constants.neighbours.top, Constants.neighbours.bottom)
@@ -168,3 +193,24 @@ func show() -> void:
 
 func hide() -> void:
 	pass
+
+func spawn_survivors() -> void:
+	var used_coordinates := []
+
+	for i in rand_range(Constants.survivors_min_per_room, Constants.survivors_max_per_room):
+		var new_survivor := survivor_scene.instance()
+		_survivors.add_child(new_survivor)
+
+		var coordinates = Vector2(randi() % Constants.tiles_width, randi() % Constants.tiles_width)
+		var location = layout[coordinates.y][coordinates.x]
+
+		while location != Constants.tiles_types.grass or used_coordinates.has(coordinates):
+			coordinates = Vector2(randi() % Constants.tiles_width, randi() % Constants.tiles_width)
+			location = layout[coordinates.y][coordinates.x]
+
+		used_coordinates.append(coordinates)
+
+		new_survivor.position = Vector2(
+			coordinates.x * Constants.sprites_width + round(Constants.sprites_width / 2.0),
+			coordinates.y * Constants.sprites_width + round(Constants.sprites_width / 2.0)
+		)

@@ -16,10 +16,10 @@ func _process(delta):
 	move_along_path(move_distance)
 
 func disable_collider() -> void:
-	_collider.disabled = true
+	_collider.call_deferred("set_disabled", true)
 
 func enable_collider() -> void:
-	_collider.disabled = false
+	_collider.call_deferred("set_disabled", false)
 
 func move_along_path(distance):
 	var start_point = position

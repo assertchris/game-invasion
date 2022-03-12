@@ -13,7 +13,7 @@ enum tiles_types {
 	grave,
 	house,
 	road,
-	navigable,
+	grass,
 }
 
 const tiles_colors := {
@@ -21,7 +21,7 @@ const tiles_colors := {
 	tiles_types.grave: "71717a",
 	tiles_types.house: "ef4444",
 	tiles_types.road: "a855f7",
-	tiles_types.navigable: "fbbf24",
+	tiles_types.grass: "fbbf24",
 }
 
 export var tree_doodad : PackedScene
@@ -36,7 +36,7 @@ onready var tiles_doodads := {
 
 const tiles_set_names := {
 	tiles_types.road: "roads",
-	tiles_types.navigable: "navigable",
+	tiles_types.grass: "navigable",
 }
 
 const rooms_total := 9
@@ -50,7 +50,7 @@ enum rooms_types {
 const tiles_is_not_doodad := [
 	tiles_types.none,
 	tiles_types.road,
-	tiles_types.navigable,
+	tiles_types.grass,
 ]
 
 const tiles_is_not_tile := [
@@ -73,3 +73,7 @@ enum neighbours {
 
 const rooms_hidden_offset := Vector2(-140, -140)
 const rooms_change_visibility := true
+
+const survivors_min_per_room := 0
+const survivors_max_per_room := 2
+const survivors_variance := 32

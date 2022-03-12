@@ -1,9 +1,10 @@
-[gd_scene load_steps=13 format=2]
+[gd_scene load_steps=14 format=2]
 
 [ext_resource path="res://nodes/room.gd" type="Script" id=1]
 [ext_resource path="res://resources/tiles.tres" type="TileSet" id=2]
 [ext_resource path="res://nodes/exit.tscn" type="PackedScene" id=3]
 [ext_resource path="res://images/sprites.png" type="Texture" id=4]
+[ext_resource path="res://nodes/survivor.tscn" type="PackedScene" id=5]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 1.5 )
@@ -39,6 +40,7 @@ margin = Rect2( 0, 0.5, 0, 0 )
 
 [node name="Room" type="YSort"]
 script = ExtResource( 1 )
+survivor_scene = ExtResource( 5 )
 
 [node name="Roads" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
@@ -48,6 +50,8 @@ cell_tile_origin = 1
 format = 1
 
 [node name="Doodads" type="YSort" parent="."]
+
+[node name="Survivors" type="YSort" parent="."]
 
 [node name="Exits" type="Node2D" parent="."]
 

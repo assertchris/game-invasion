@@ -99,6 +99,7 @@ func make_rooms(parent, player) -> void:
 		next_room.room_position = next_room_position
 		next_room.room_type = next_room_type
 		next_room.position = Constants.rooms_hidden_offset
+		next_room.spawn_survivors()
 
 		if Constants.rooms_change_visibility:
 			next_room.visible = false

@@ -27,5 +27,6 @@ mouse_filter = 2
 
 [node name="RestartMusicTimer" type="Timer" parent="." index="1"]
 wait_time = 15.0
+one_shot = true
 
 [connection signal="timeout" from="RestartMusicTimer" to="." method="_on_RestartMusicTimer_timeout"]

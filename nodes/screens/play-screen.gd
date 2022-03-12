@@ -18,6 +18,8 @@ func _ready() -> void:
 	_player = Player.instance()
 	Generation.make_rooms(_navigation, _player)
 
+	Variables.current_navigation = _navigation
+
 func play_music() -> void:
 	randomize()
 	Audio.play_music(Constants.level_tracks[randi() % Constants.level_tracks.size()])
@@ -28,8 +30,22 @@ func _unhandled_input(event: InputEvent) -> void:
 
 	if event is InputEventMouseButton:
 		if event.is_pressed():
+			randomize()
+
 			var position = get_local_mouse_position() - _anchor.rect_position
-			_player.set_path(_navigation.get_simple_path(_player.position, position, false))
+			var path = _navigation.get_simple_path(_player.position, position, false)
+
+			_player.set_path(path)
+
+			for survivor in get_tree().get_nodes_in_group("survivors"):
+				var variance = Vector2(
+					rand_range(Constants.survivors_variance / -2, Constants.survivors_variance / 2),
+					rand_range(Constants.survivors_variance / -2, Constants.survivors_variance / 2)
+				)
+
+				var variant_path = Variables.current_navigation.get_simple_path(_player.position, position + variance, false)
+
+				survivor.follow(variant_path)
 
 func restart_music_timer() -> void:
 	_restart_music_timer.start()
