@@ -2,8 +2,8 @@
 
 [ext_resource path="res://nodes/doodads/doodad.gd" type="Script" id=1]
 
-[node name="Doodad" type="StaticBody2D" groups=["doodads"]]
+[node name="Doodad" type="Area2D" groups=["doodads"]]
 collision_layer = 2
 script = ExtResource( 1 )
 
-[node name="Collider" type="CollisionPolygon2D" parent="."]
+[node name="Collider" type="CollisionShape2D" parent="."]

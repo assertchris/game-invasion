@@ -5,6 +5,7 @@
 [ext_resource path="res://nodes/player.tscn" type="PackedScene" id=3]
 
 [node name="PlayScreen" instance=ExtResource( 1 )]
+mouse_filter = 2
 script = ExtResource( 2 )
 Player = ExtResource( 3 )
 
@@ -24,5 +25,3 @@ rect_min_size = Vector2( 132, 132 )
 mouse_filter = 2
 
 [node name="Navigation" type="Navigation2D" parent="Center/Anchor" index="0"]
-
-[connection signal="gui_input" from="." to="." method="_on_PlayScreen_gui_input"]

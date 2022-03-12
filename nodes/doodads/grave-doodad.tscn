@@ -13,6 +13,3 @@ script = ExtResource( 3 )
 
 [node name="Sprite" type="Sprite" parent="." index="0"]
 texture = SubResource( 1 )
-
-[node name="Collider" parent="." index="1"]
-polygon = PoolVector2Array( -4, 4, 4, 4, 4, -4, -4, -4 )

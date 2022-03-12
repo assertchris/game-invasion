@@ -1,2 +1,2 @@
-extends StaticBody2D
+extends Area2D
 class_name Doodad

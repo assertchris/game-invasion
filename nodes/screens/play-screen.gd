@@ -14,7 +14,7 @@ func _ready() -> void:
 	_player = Player.instance()
 	Generation.make_rooms(_navigation, _player)
 
-func _on_PlayScreen_gui_input(event: InputEvent) -> void:
+func _unhandled_input(event: InputEvent) -> void:
 	if not _player:
 		return
 

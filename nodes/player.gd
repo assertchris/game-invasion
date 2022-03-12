@@ -1,6 +1,8 @@
 extends KinematicBody2D
 class_name Player
 
+onready var _collider := $Collider
+
 var path := PoolVector2Array()
 
 signal position_changed
@@ -12,6 +14,12 @@ func _process(delta):
 	var move_distance = Constants.player_speed * delta
 	emit_signal("position_changed", position)
 	move_along_path(move_distance)
+
+func disable_collider() -> void:
+	_collider.disabled = true
+
+func enable_collider() -> void:
+	_collider.disabled = false
 
 func move_along_path(distance):
 	var start_point = position

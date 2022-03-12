@@ -68,3 +68,6 @@ enum neighbours {
 	bottom = 2,
 	left = 3,
 }
+
+const rooms_hidden_offset := Vector2(-140, -140)
+const rooms_change_visibility := true

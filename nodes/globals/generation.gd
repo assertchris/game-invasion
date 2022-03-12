@@ -55,8 +55,8 @@ func add_room_doodads(parent, layout: Array) -> void:
 			parent.add_child(doodad)
 
 			doodad.position = Vector2(
-				x * Constants.sprites_width,
-				y * Constants.sprites_width
+				x * Constants.sprites_width + round(Constants.sprites_width / 2.0),
+				y * Constants.sprites_width + round(Constants.sprites_width / 2.0)
 			)
 
 func make_rooms(parent, player) -> void:
@@ -69,20 +69,25 @@ func make_rooms(parent, player) -> void:
 	Variables.rooms_made = []
 
 	var first_room = room_scene.instance()
+	parent.add_child(first_room)
 	first_room.room_position = Vector2(0, 0)
 	first_room.room_type = Constants.rooms_types.first
+	first_room.position = Constants.rooms_hidden_offset
 
-	Variables.room_position_options += get_neighbor_positions(first_room.room_position)
-	Variables.room_positions_taken.push_back(first_room.room_position)
-	Variables.rooms_made.push_back(first_room)
+	if Constants.rooms_change_visibility:
+		first_room.visible = false
 
-	var except_array_index = randi() % Variables.room_position_options.size()
-	var except_room_position = Variables.room_position_options[except_array_index]
-	Variables.room_position_options.remove(except_array_index)
+	Variables.room_position_options += first_room.get_neighbor_positions().values()
+	Variables.room_positions_taken.append(first_room.room_position)
+	Variables.rooms_made.append(first_room)
+
+	# make sure the first room has one open side
+	var except_room_position = Variables.room_position_options[randi() % Variables.room_position_options.size()]
+	Variables.room_position_options.erase(except_room_position)
 
 	while rooms_left > 0:
-		var array_index = randi() % Variables.room_position_options.size()
-		var next_room_position = Variables.room_position_options[array_index]
+		var next_room_position = Variables.room_position_options[randi() % Variables.room_position_options.size()]
+		Variables.room_position_options.erase(next_room_position)
 
 		var next_room_type = Constants.rooms_types.normal
 
@@ -90,32 +95,26 @@ func make_rooms(parent, player) -> void:
 			next_room_type = Constants.rooms_types.last
 
 		var next_room = room_scene.instance()
+		parent.add_child(next_room)
 		next_room.room_position = next_room_position
 		next_room.room_type = next_room_type
+		next_room.position = Constants.rooms_hidden_offset
 
-		Variables.room_positions_taken.push_back(next_room_position)
-		Variables.rooms_made.push_back(next_room)
+		if Constants.rooms_change_visibility:
+			next_room.visible = false
 
-		var next_room_neighbors = get_neighbor_positions(next_room_position)
+		Variables.room_positions_taken.append(next_room_position)
+		Variables.rooms_made.append(next_room)
 
-		for next_room_option in next_room_neighbors:
-			if not Variables.room_positions_taken.has(next_room_option) and except_room_position != next_room_option:
-				Variables.room_position_options.push_back(next_room_option)
+		for next_room_option in next_room.get_neighbor_positions().values():
+			if not Variables.room_positions_taken.has(next_room_option) and not Variables.room_position_options.has(next_room_option) and except_room_position != next_room_option:
+				Variables.room_position_options.append(next_room_option)
 
 		rooms_left -= 1
 
+	var debug_room_positions := []
+
 	for room in Variables.rooms_made:
-		parent.add_child(room)
-		room.visible = false
+		debug_room_positions.append(room.room_position)
 
-	Variables.current_room = first_room
-	Variables.current_room.visible = true
-	Variables.current_room.add_player(player)
-
-func get_neighbor_positions(position) -> Array:
-	return [
-		Vector2(position.x, position.y - 1),
-		Vector2(position.x + 1, position.y),
-		Vector2(position.x, position.y + 1),
-		Vector2(position.x - 1, position.y),
-	]
+	first_room.enter_with_player(player, first_room.free_side())
