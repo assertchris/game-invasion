@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/the-sick-doll.ogg-ab45c5af780ff413e23939d4d4a0f6bd.oggstr"
+
+[deps]
+
+source_file="res://music/the-sick-doll.ogg"
+dest_files=[ "res://.import/the-sick-doll.ogg-ab45c5af780ff413e23939d4d4a0f6bd.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/witch.ogg-43e8bd786111106e1c3b857f58721b55.oggstr"
+
+[deps]
+
+source_file="res://music/witch.ogg"
+dest_files=[ "res://.import/witch.ogg-43e8bd786111106e1c3b857f58721b55.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

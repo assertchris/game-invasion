@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/sweet-dream.ogg-01d130bcd4f026dbe5ada6bfd71f3619.oggstr"
+
+[deps]
+
+source_file="res://music/sweet-dream.ogg"
+dest_files=[ "res://.import/sweet-dream.ogg-01d130bcd4f026dbe5ada6bfd71f3619.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

@@ -1,6 +1,8 @@
 extends Node
 
 export var tiles : Texture
+export (Array, AudioStream) var menu_tracks
+export (Array, AudioStream) var level_tracks
 
 const tiles_width := 11
 const tiles_count := 4

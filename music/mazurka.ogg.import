@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/mazurka.ogg-676becea8ab913da04253172f99a4f48.oggstr"
+
+[deps]
+
+source_file="res://music/mazurka.ogg"
+dest_files=[ "res://.import/mazurka.ogg-676becea8ab913da04253172f99a4f48.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

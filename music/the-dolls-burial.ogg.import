@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/the-dolls-burial.ogg-66b2512461b1fdf415e397707a9dfc36.oggstr"
+
+[deps]
+
+source_file="res://music/the-dolls-burial.ogg"
+dest_files=[ "res://.import/the-dolls-burial.ogg-66b2512461b1fdf415e397707a9dfc36.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

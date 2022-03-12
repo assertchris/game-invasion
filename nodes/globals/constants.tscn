@@ -1,14 +1,25 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=15 format=2]
 
 [ext_resource path="res://nodes/globals/constants.gd" type="Script" id=1]
 [ext_resource path="res://images/tiles.png" type="Texture" id=2]
 [ext_resource path="res://nodes/doodads/tree-doodad.tscn" type="PackedScene" id=3]
 [ext_resource path="res://nodes/doodads/grave-doodad.tscn" type="PackedScene" id=4]
+[ext_resource path="res://music/the-sick-doll.ogg" type="AudioStream" id=5]
 [ext_resource path="res://nodes/doodads/house-doodad.tscn" type="PackedScene" id=6]
+[ext_resource path="res://music/winter-morning.ogg" type="AudioStream" id=7]
+[ext_resource path="res://music/sweet-dream.ogg" type="AudioStream" id=8]
+[ext_resource path="res://music/the-dolls-burial.ogg" type="AudioStream" id=9]
+[ext_resource path="res://music/witch.ogg" type="AudioStream" id=10]
+[ext_resource path="res://music/mazurka.ogg" type="AudioStream" id=11]
+[ext_resource path="res://music/mama.ogg" type="AudioStream" id=12]
+[ext_resource path="res://music/morning-prayer.ogg" type="AudioStream" id=13]
+[ext_resource path="res://music/old-french-song.ogg" type="AudioStream" id=14]
 
 [node name="Constants" type="Node"]
 script = ExtResource( 1 )
 tiles = ExtResource( 2 )
+menu_tracks = [ ExtResource( 14 ), ExtResource( 13 ) ]
+level_tracks = [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 10 ) ]
 tree_doodad = ExtResource( 3 )
 grave_doodad = ExtResource( 4 )
 house_doodad = ExtResource( 6 )
