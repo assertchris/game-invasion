@@ -1,11 +1,14 @@
 extends StaticBody2D
 class_name Survivor
 
+signal acquired
+
 onready var _circle := $Circle
 onready var _circle_animator := $CircleAnimator
 
 var path := PoolVector2Array()
 var is_following_player := false
+var character : Dictionary
 
 func _ready():
 	set_process(false)
@@ -69,3 +72,5 @@ func _on_Aquisition_body_entered(body: Node) -> void:
 	_circle_animator.play_backwards("Show")
 	yield(_circle_animator, "animation_finished")
 	_circle.visible = false
+
+	emit_signal("acquired", self)

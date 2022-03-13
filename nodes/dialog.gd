@@ -24,3 +24,45 @@ func show() -> void:
 
 func hide() -> void:
 	_animator.play_backwards("Show")
+
+func show_acquired_dialog(survivor_character : Dictionary) -> void:
+	show()
+
+	current_dialog = Dialogic.start('')
+	current_dialog.connect("dialogic_signal", self, "on_dialogic_signal")
+
+	current_dialog.dialog_node.dialog_script = {
+		"events":[
+			{
+				"action": "join",
+				"character": survivor_character.file,
+				"event_id": "dialogic_002",
+				"mirror": false,
+				"portrait": "",
+				"position": {
+					"0": false,
+					"1": true,
+					"2": false,
+					"3": false,
+					"4": false
+				}
+			},
+			{
+				"character": survivor_character.file,
+				"event_id": "dialogic_001",
+				"portrait": "",
+				"text": "Please help, I am scared"
+			},
+			{
+				"action": "leaveall",
+				"character": "[All]",
+				"event_id": "dialogic_003"
+			},
+			{
+				"emit_signal": "hide",
+				"event_id": "dialogic_040"
+			},
+		],
+	}
+
+	_background.add_child(current_dialog)

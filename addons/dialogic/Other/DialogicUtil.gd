@@ -19,7 +19,7 @@ static func get_character_list() -> Array:
 	for file in DialogicResources.listdir(DialogicResources.get_path('CHAR_DIR')):
 		if '.json' in file:
 			var data: Dictionary = DialogicResources.get_character_json(file)
-			
+
 			characters.append({
 				'name': data.get('name', data['id']),
 				'color': Color(data.get('color', "#ffffff")),
@@ -137,10 +137,10 @@ static func get_timelines_folder_structure():
 
 static func get_characters_folder_structure():
 	return get_folder_at_path("Characters")
-	
+
 static func get_definitions_folder_structure():
 	return get_folder_at_path("Definitions")
-	
+
 static func get_theme_folder_structure():
 	return get_folder_at_path("Themes")
 
@@ -148,11 +148,11 @@ static func get_theme_folder_structure():
 # a path consists of the foldernames divided by '/'
 static func get_folder_at_path(path):
 	var folder_data = get_full_resource_folder_structure()
-	
+
 	for folder in path.split("/"):
 		if folder:
 			folder_data = folder_data['folders'][folder]
-	
+
 	if folder_data == null:
 		folder_data = {"folders":{}, "files":[]}
 	return folder_data
@@ -193,18 +193,18 @@ static func add_folder(path:String, folder_name:String):
 	if folder_name in get_folder_at_path(path)['folders'].keys():
 		print("[D] A folder with the name '"+folder_name+"' already exists in the target folder '"+path+"'.")
 		return ERR_ALREADY_EXISTS
-	
+
 	var folder_data = get_folder_at_path(path)
 	folder_data['folders'][folder_name] = {"folders":{}, "files":[], 'metadata':{'color':null, 'folded':false}}
 	set_folder_at_path(path, folder_data)
-	
+
 	return OK
 
 static func remove_folder(folder_path:String, delete_files:bool = true):
 	#print("[D] Removing 'Folder' "+folder_path)
 	for folder in get_folder_at_path(folder_path)['folders']:
 		remove_folder(folder_path+"/"+folder, delete_files)
-	
+
 	if delete_files:
 		for file in get_folder_at_path(folder_path)['files']:
 			#print("[D] Removing file ", file)
@@ -224,13 +224,13 @@ static func rename_folder(path:String, new_folder_name:String):
 	if new_folder_name in get_folder_at_path(get_parent_path(path))['folders'].keys():
 		print("[D] A folder with the name '"+new_folder_name+"' already exists in the target folder '"+get_parent_path(path)+"'.")
 		return ERR_ALREADY_EXISTS
-	
+
 	# save the content
 	var folder_content = get_folder_at_path(path)
-	
+
 	# remove the old folder BUT NOT THE FILES !!!!!
 	remove_folder(path, false)
-	
+
 	# add the new folder
 	add_folder(get_parent_path(path), new_folder_name)
 	var new_path = get_parent_path(path)+ "/"+new_folder_name
@@ -243,20 +243,20 @@ static func move_folder_to_folder(orig_path, target_folder):
 	if orig_path.split("/")[-1] in get_folder_at_path(target_folder)['folders'].keys():
 		print("[D] A folder with the name '"+orig_path.split("/")[-1]+"' already exists in the target folder '"+target_folder+"'.")
 		return ERR_ALREADY_EXISTS
-	
+
 	# save the content
 	var folder_content = get_folder_at_path(orig_path)
-	
+
 	# remove the old folder BUT DON'T DELETE THE FILES!!!!!!!!!!!
 	# took me ages to find this when I forgot it..
 	remove_folder(orig_path, false)
-	
+
 	# add the new folder
 	var folder_name = orig_path.split("/")[-1]
 	add_folder(target_folder, folder_name)
 	var new_path = target_folder+ "/"+folder_name
 	set_folder_at_path(new_path, folder_content)
-	
+
 	return OK
 
 ## FILE FUNCTIONS
@@ -279,17 +279,17 @@ static func remove_file_from_folder(folder_path, file_name):
 #should be called when files got deleted and on program start
 static func update_resource_folder_structure():
 	var character_files = DialogicResources.listdir(DialogicResources.get_path('CHAR_DIR'))
-	var timeline_files = DialogicResources.listdir(DialogicResources.get_path('TIMELINE_DIR')) 
+	var timeline_files = DialogicResources.listdir(DialogicResources.get_path('TIMELINE_DIR'))
 	var theme_files = DialogicResources.listdir(DialogicResources.get_path('THEME_DIR'))
 	var definition_files = get_default_definitions_dict().keys()
-	
+
 	var folder_structure = DialogicResources.get_resource_folder_structure()
-	
+
 	folder_structure['folders']['Timelines'] = check_folders_section(folder_structure['folders']['Timelines'], timeline_files)
 	folder_structure['folders']['Characters'] = check_folders_section(folder_structure['folders']['Characters'], character_files)
 	folder_structure['folders']['Themes'] = check_folders_section(folder_structure['folders']['Themes'], theme_files)
 	folder_structure['folders']['Definitions'] = check_folders_section(folder_structure['folders']['Definitions'], definition_files)
-	
+
 	DialogicResources.save_resource_folder_structure(folder_structure)
 
 # calls the check_folders_recursive
@@ -336,10 +336,10 @@ static func path_fixer_load(path):
 	# This function was added because some of the default assets shipped with
 	# Dialogic 1.0 were moved for version 1.1. If by any chance they still
 	# Use those resources, we redirect the paths from the old place to the new
-	# ones. This can be safely removed and replace all instances of 
+	# ones. This can be safely removed and replace all instances of
 	# DialogicUtil.path_fixer_load(x) with just load(x) on version 2.0
 	# since we will break compatibility.
-	
+
 	match path:
 		'res://addons/dialogic/Fonts/DefaultFont.tres':
 			return load("res://addons/dialogic/Example Assets/Fonts/DefaultFont.tres")
@@ -358,12 +358,12 @@ static func path_fixer_load(path):
 # This should be deleted in 2.0
 static func resource_fixer():
 	var update_index = DialogicResources.get_settings_config().get_value("updates", "updatenumber", 0)
-	
+
 	if update_index < 1:
 		print("[D] Update NR. "+str(update_index)+" | Adds event ids. Don't worry about this.")
 		for timeline_info in get_timeline_list():
 			var timeline = DialogicResources.get_timeline_json(timeline_info['file'])
-			
+
 			var events = timeline["events"]
 			for i in events:
 				if not i.has("event_id"):
@@ -375,10 +375,10 @@ static func resource_fixer():
 						# Join event
 						{'character', 'action', 'position', 'portrait',..}:
 							i['event_id'] = 'dialogic_002'
-						# Character Leave event 
+						# Character Leave event
 						{'character', 'action'}:
 							i['event_id'] = 'dialogic_003'
-						
+
 						# LOGIC EVENTS
 						# Question event
 						{'question', 'options', ..}:
@@ -395,7 +395,7 @@ static func resource_fixer():
 						# Set Value event
 						{'set_value', 'definition', ..}:
 							i['event_id'] = 'dialogic_014'
-						
+
 						# TIMELINE EVENTS
 						# Change Timeline event
 						{'change_timeline'}:
@@ -412,7 +412,7 @@ static func resource_fixer():
 						# Set Theme event
 						{'set_theme'}:
 							i['event_id'] = 'dialogic_024'
-						
+
 						# AUDIO EVENTS
 						# Audio event
 						{'audio', 'file', ..}:
@@ -420,7 +420,7 @@ static func resource_fixer():
 						# Background Music event
 						{'background-music', 'file', ..}:
 							i['event_id'] = 'dialogic_031'
-						
+
 						# GODOT EVENTS
 						# Emit signal event
 						{'emit_signal'}:
@@ -433,9 +433,9 @@ static func resource_fixer():
 							i['event_id'] = 'dialogic_042'
 			timeline['events'] = events
 			DialogicResources.set_timeline(timeline)
-	
+
 	DialogicResources.set_settings_value("updates", "updatenumber", 1)
-	
+
 
 ## *****************************************************************************
 ##							DIALOGIC_SORTER CLASS
@@ -450,13 +450,13 @@ class DialgicSorter:
 	static func get_compare_value(a: Dictionary) -> String:
 		if key_available('display_name', a):
 			return a['display_name']
-		
+
 		if key_available('name', a):
 			return a['name']
-		
+
 		if key_available('id', a):
 			return a['id']
-		
+
 		if 'metadata' in a.keys():
 			var a_metadata = a['metadata']
 			if key_available('name', a_metadata):

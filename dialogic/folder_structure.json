@@ -46,7 +46,7 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": false
+						"folded": true
 					}
 				},
 				"Survivors": {
@@ -87,7 +87,7 @@
 					},
 					"metadata": {
 						"color": null,
-						"folded": false
+						"folded": true
 					}
 				}
 			},
@@ -122,7 +122,8 @@
 		},
 		"Timelines": {
 			"files": [
-				"timeline-1647162430.json"
+				"timeline-1647162430.json",
+				"timeline-1647179323.json"
 			],
 			"folders": {
 

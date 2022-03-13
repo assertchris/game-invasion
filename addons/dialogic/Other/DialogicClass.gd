@@ -21,7 +21,7 @@ class_name Dialogic
 ## add_child(new_dialog)
 ##
 ## This is similar to using the editor:
-## you can drag and drop the scene located at /addons/dialogic/Dialog.tscn 
+## you can drag and drop the scene located at /addons/dialogic/Dialog.tscn
 ## and set the current timeline via the inspector.
 ##
 ## @param timeline				The timeline to load. You can provide the timeline name or the filename.
@@ -37,7 +37,7 @@ static func start(timeline: String = '', default_timeline: String ='', dialog_sc
 	var dialog_node = null
 	var canvas_dialog_node = null
 	var returned_dialog_node = null
-	
+
 	if use_canvas_instead:
 		var canvas_dialog_script = load("res://addons/dialogic/Nodes/canvas_dialog_node.gd")
 		canvas_dialog_node = canvas_dialog_script.new()
@@ -45,31 +45,31 @@ static func start(timeline: String = '', default_timeline: String ='', dialog_sc
 		dialog_node = canvas_dialog_node.dialog_node
 	else:
 		dialog_node = dialog_scene.instance()
-	
+
 	dialog_node.debug_mode = debug_mode
-	
+
 	returned_dialog_node = dialog_node if not canvas_dialog_node else canvas_dialog_node
-	
+
 	## 1. Case: A slot has been loaded OR data has been imported
 	if timeline == '':
-		if (Engine.get_main_loop().has_meta('last_dialog_state') 
+		if (Engine.get_main_loop().has_meta('last_dialog_state')
 			and not Engine.get_main_loop().get_meta('last_dialog_state').empty()
 			and not Engine.get_main_loop().get_meta('last_dialog_state').get('timeline', '').empty()):
-		
+
 			dialog_node.resume_state_from_info(Engine.get_main_loop().get_meta('last_dialog_state'))
 			return returned_dialog_node
-		
+
 		## The loaded data isn't complete
 		elif (Engine.get_main_loop().has_meta('current_timeline')
 			and not Engine.get_main_loop().get_meta('current_timeline').empty()):
 				timeline = Engine.get_main_loop().get_meta('current_timeline')
-		
+
 		## Else load the default timeline
 		else:
 			timeline = default_timeline
-	
+
 	## 2. Case: A specific timeline should be started
-	
+
 	# check if it's a file name
 	if timeline.ends_with('.json'):
 		for t in DialogicUtil.get_timeline_list():
@@ -86,13 +86,13 @@ static func start(timeline: String = '', default_timeline: String ='', dialog_sc
 			}]
 		}
 		return returned_dialog_node
-	
+
 	# else get the file from the name
 	var timeline_file = _get_timeline_file_from_name(timeline)
 	if timeline_file:
 		dialog_node.timeline = timeline_file
 		return returned_dialog_node
-	
+
 	# Just in case everything else fails.
 	return returned_dialog_node
 
@@ -109,29 +109,29 @@ static func load(slot_name: String = ''):
 
 
 ## Saves the current definitions and the latest added dialog nodes state info.
-## 
+##
 ## @param slot_name		The name of the save slot. To load this save you have to specify the same
-##						If the slot folder doesn't exist it will be created. 
+##						If the slot folder doesn't exist it will be created.
 ##						Leaving this empty will use the last loaded save slot.
 static func save(slot_name: String = '', is_autosave = false) -> void:
 	# check if to save (if this is a autosave)
 	if is_autosave and not get_autosave():
 		return
-	
+
 	# gather the info
 	var current_dialog_info = {}
 	if has_current_dialog_node():
 		current_dialog_info = Engine.get_main_loop().get_meta('latest_dialogic_node').get_current_state_info()
-	
+
 	var game_state = {}
 	if Engine.get_main_loop().has_meta('game_state'):
 		game_state = Engine.get_main_loop().get_meta('game_state')
-	
+
 	var save_data = {
 		'game_state': game_state,
 		'dialog_state': current_dialog_info
 		}
-	
+
 	# save the information
 	_save_state_and_definitions(slot_name, save_data)
 
@@ -142,7 +142,7 @@ static func get_slot_names() -> Array:
 
 
 ## Will permanently erase the data in the given save_slot.
-## 
+##
 ## @param slot_name		The name of the slot folder.
 static func erase_slot(slot_name: String) -> void:
 	DialogicResources.remove_save_folder(slot_name)
@@ -182,7 +182,7 @@ static func export(dialog_node = null) -> Dictionary:
 		dialog_node = Engine.get_main_loop().get_meta('latest_dialogic_node')
 	if dialog_node:
 		current_dialog_info = dialog_node.get_current_state_info()
-	
+
 	# return it
 	return {
 		'definitions': _get_definitions(),
@@ -191,11 +191,11 @@ static func export(dialog_node = null) -> Dictionary:
 	}
 
 
-# this loads a dictionary with GAME STATE, DEFINITIONS and DIALOG_STATE 
+# this loads a dictionary with GAME STATE, DEFINITIONS and DIALOG_STATE
 static func import(data: Dictionary) -> void:
 	## Tell the future we want to use the imported data
 	Engine.get_main_loop().set_meta('current_save_lot', '/')
-	
+
 	# load the data
 	Engine.get_main_loop().set_meta('definitions', data['definitions'])
 	Engine.get_main_loop().set_meta('game_state', data['state'])
@@ -216,7 +216,7 @@ static func set_variable(name: String, value):
 			exists = true
 	if exists == false:
 		# TODO it would be great to automatically generate that missing variable here so they don't
-		# have to create it from the editor. 
+		# have to create it from the editor.
 		print("[Dialogic] Warning! the variable [" + name + "] doesn't exists. Create it from the Dialogic editor.")
 	return value
 
@@ -287,11 +287,11 @@ static func get_current_timeline():
 ## this loads the saves definitions and returns the saves state_info ditionary
 static func _load_from_slot(slot_name: String = '') -> Dictionary:
 	Engine.get_main_loop().set_meta('definitions', DialogicResources.get_saved_definitions(slot_name))
-	
+
 	var state_info = DialogicResources.get_saved_state_info(slot_name)
 	Engine.get_main_loop().set_meta('last_dialog_state', state_info.get('dialog_state', null))
 	Engine.get_main_loop().set_meta('game_state', state_info.get('game_state', null))
-	
+
 	return state_info.get('dialog_state', {})
 
 
@@ -357,7 +357,7 @@ static func set_variable_from_id(id: String, value: String, operation: String) -
 					result = converted_target_value / converted_set_value
 		target_def['value'] = str(result)
 
-# tries to find the path of a given timeline 
+# tries to find the path of a given timeline
 static func _get_timeline_file_from_name(timeline_name_path: String) -> String:
 	var timelines = DialogicUtil.get_full_resource_folder_structure()['folders']['Timelines']
 	var parts = timeline_name_path.split('/', false)
@@ -374,7 +374,7 @@ static func _get_timeline_file_from_name(timeline_name_path: String) -> String:
 					for f in current_data['files']:
 						if t['file'] == f && t['name'] == p:
 							return t['file']
-							
+
 			else:
 				# Still going deeper
 				current_data = current_data['folders'][p]

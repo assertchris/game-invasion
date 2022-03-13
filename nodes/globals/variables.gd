@@ -9,3 +9,4 @@ var is_moving_rooms := false
 var player_last_position : Vector2
 
 var current_navigation : Navigation2D
+var current_player : Player

@@ -32,4 +32,9 @@ mouse_filter = 2
 wait_time = 15.0
 one_shot = true
 
+[node name="AcquireSurvivorTimer" type="Timer" parent="." index="3"]
+wait_time = 10.0
+one_shot = true
+
 [connection signal="timeout" from="RestartMusicTimer" to="." method="_on_RestartMusicTimer_timeout"]
+[connection signal="timeout" from="AcquireSurvivorTimer" to="." method="_on_AcquireSurvivorTimer_timeout"]

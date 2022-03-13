@@ -3,13 +3,18 @@ extends Node
 export var room_scene : PackedScene
 
 var tiles_data : Image
+var characters_data : Array
 
 func _ready() -> void:
 	get_tile_data()
+	get_character_data()
 
 func get_tile_data() -> void:
 	tiles_data = Constants.tiles.get_data()
 	tiles_data.lock()
+
+func get_character_data() -> void:
+	characters_data = DialogicUtil.get_sorted_character_list()
 
 func get_room_layout() -> Array:
 	randomize()
@@ -59,7 +64,7 @@ func add_room_doodads(parent, layout: Array) -> void:
 				y * Constants.sprites_width + round(Constants.sprites_width / 2.0)
 			)
 
-func make_rooms(parent, player) -> void:
+func make_rooms(parent) -> void:
 	randomize()
 
 	var rooms_left = Constants.rooms_total - 1
@@ -118,4 +123,4 @@ func make_rooms(parent, player) -> void:
 	for room in Variables.rooms_made:
 		debug_room_positions.append(room.room_position)
 
-	first_room.enter_with_player(player, first_room.free_side())
+	first_room.enter_with_player(first_room.free_side())

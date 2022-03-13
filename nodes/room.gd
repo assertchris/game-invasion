@@ -59,12 +59,12 @@ func free_side() -> int:
 
 	return -1
 
-func add_player(player : Player, move_to : int) -> void:
-	var parent = player.get_parent()
+func add_player(move_to : int) -> void:
+	var parent = Variables.current_player.get_parent()
 	var survivors := []
 
 	if parent:
-		parent.remove_child(player)
+		parent.remove_child(Variables.current_player)
 
 		for survivor in get_tree().get_nodes_in_group("survivors"):
 			if survivor.is_following_player:
@@ -74,7 +74,7 @@ func add_player(player : Player, move_to : int) -> void:
 	# this drops most race condition errors when the player is added to the new room
 	yield(get_tree().create_timer(0.05), "timeout")
 
-	add_child(player)
+	add_child(Variables.current_player)
 
 	var place_position : Vector2
 	var is_horizontal = true
@@ -93,11 +93,11 @@ func add_player(player : Player, move_to : int) -> void:
 
 	if Variables.player_last_position:
 		if is_horizontal:
-			player.global_position = Vector2(place_position.x, Variables.player_last_position.y)
+			Variables.current_player.global_position = Vector2(place_position.x, Variables.player_last_position.y)
 		else:
-			player.global_position = Vector2(Variables.player_last_position.x, place_position.y)
+			Variables.current_player.global_position = Vector2(Variables.player_last_position.x, place_position.y)
 	else:
-		player.global_position = place_position
+		Variables.current_player.global_position = place_position
 
 	for survivor in survivors:
 		_survivors.add_child(survivor)
@@ -108,7 +108,7 @@ func add_player(player : Player, move_to : int) -> void:
 			rand_range(round(Constants.survivors_variance / -2.0), round(Constants.survivors_variance / 2.0))
 		)
 
-		survivor.global_position = player.global_position + variance
+		survivor.global_position = Variables.current_player.global_position + variance
 
 func _on_Top_body_entered(body: Node) -> void:
 	on_body_entered(body, Constants.neighbours.top, Constants.neighbours.bottom)
@@ -136,11 +136,11 @@ func on_body_entered(body : Node, neighbour : int, move_to : int) -> void:
 	body.disable_collider()
 
 	var found_neighbour = get_neighbour(neighbour)
-	found_neighbour.enter_with_player(body, move_to)
+	found_neighbour.enter_with_player(move_to)
 
-func enter_with_player(player : Player, move_to : int) -> void:
+func enter_with_player(move_to : int) -> void:
 	if Variables.current_room:
-		Variables.player_last_position = player.global_position
+		Variables.player_last_position = Variables.current_player.global_position
 		Variables.current_room.position = Constants.rooms_hidden_offset
 
 		if Constants.rooms_change_visibility:
@@ -150,7 +150,7 @@ func enter_with_player(player : Player, move_to : int) -> void:
 
 	get_tree().call_group("exits", "disable_collider")
 
-	player.path = PoolVector2Array()
+	Variables.current_player.path = PoolVector2Array()
 
 	Variables.current_room = self
 	Variables.current_room.position = Vector2(0, 0)
@@ -159,7 +159,7 @@ func enter_with_player(player : Player, move_to : int) -> void:
 		Variables.current_room.visible = true
 
 	Variables.current_room.show()
-	Variables.current_room.add_player(player, move_to)
+	Variables.current_room.add_player(move_to)
 
 	print("new room position: " + str(Variables.current_room.room_position))
 
@@ -167,7 +167,7 @@ func enter_with_player(player : Player, move_to : int) -> void:
 
 	get_tree().call_group("exits", "enable_collider")
 
-	player.enable_collider()
+	Variables.current_player.enable_collider()
 	Variables.is_moving_rooms = false
 
 func show() -> void:
@@ -198,6 +198,17 @@ func spawn_survivors() -> void:
 	for i in rand_range(Constants.survivors_min_per_room, Constants.survivors_max_per_room):
 		var new_survivor : Survivor = survivor_scenes[randi() % survivor_scenes.size()].instance()
 		_survivors.add_child(new_survivor)
+
+		var potential_characters := []
+
+		for character in Generation.characters_data:
+			if new_survivor.is_in_group("males") and "male" in character.name:
+				potential_characters.append(character)
+			if new_survivor.is_in_group("females") and "female" in character.name:
+				potential_characters.append(character)
+
+		if potential_characters.size() > 0:
+			new_survivor.character = potential_characters[randi() % potential_characters.size()]
 
 		var coordinates = Vector2(randi() % Constants.tiles_width, randi() % Constants.tiles_width)
 		var location = layout[coordinates.y][coordinates.x]
