@@ -1,0 +1,20 @@
+{
+	"color": "#ffdc2626",
+	"description": "",
+	"display_name": "Soldier",
+	"display_name_bool": true,
+	"id": "character-1647161764.json",
+	"mirror_portraits": true,
+	"name": "male-soldier-11",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": -75,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://images/avatars/red-male-11.png"
+		}
+	],
+	"scale": 30
+}

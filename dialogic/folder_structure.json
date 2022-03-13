@@ -1,0 +1,136 @@
+{
+	"files": [
+
+	],
+	"folders": {
+		"Characters": {
+			"files": [
+
+			],
+			"folders": {
+				"Soldiers": {
+					"files": [
+						"character-1647158571.json",
+						"character-1647161590.json",
+						"character-1647161616.json",
+						"character-1647161628.json",
+						"character-1647161635.json",
+						"character-1647161650.json",
+						"character-1647161658.json",
+						"character-1647161665.json",
+						"character-1647161671.json",
+						"character-1647161678.json",
+						"character-1647161686.json",
+						"character-1647161698.json",
+						"character-1647161715.json",
+						"character-1647161724.json",
+						"character-1647161727.json",
+						"character-1647161732.json",
+						"character-1647161737.json",
+						"character-1647161742.json",
+						"character-1647161747.json",
+						"character-1647161752.json",
+						"character-1647161756.json",
+						"character-1647161760.json",
+						"character-1647161764.json",
+						"character-1647161768.json",
+						"character-1647161773.json",
+						"character-1647161777.json",
+						"character-1647161782.json",
+						"character-1647161786.json",
+						"character-1647161790.json",
+						"character-1647161795.json"
+					],
+					"folders": {
+
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
+					}
+				},
+				"Survivors": {
+					"files": [
+						"character-1647174339.json",
+						"character-1647174363.json",
+						"character-1647174371.json",
+						"character-1647174380.json",
+						"character-1647174386.json",
+						"character-1647174392.json",
+						"character-1647174397.json",
+						"character-1647174403.json",
+						"character-1647174409.json",
+						"character-1647174415.json",
+						"character-1647174421.json",
+						"character-1647174428.json",
+						"character-1647174434.json",
+						"character-1647174446.json",
+						"character-1647174451.json",
+						"character-1647174455.json",
+						"character-1647174461.json",
+						"character-1647174468.json",
+						"character-1647174472.json",
+						"character-1647174478.json",
+						"character-1647174483.json",
+						"character-1647174490.json",
+						"character-1647174496.json",
+						"character-1647174501.json",
+						"character-1647174506.json",
+						"character-1647174511.json",
+						"character-1647174517.json",
+						"character-1647174522.json",
+						"character-1647174529.json",
+						"character-1647174535.json"
+					],
+					"folders": {
+
+					},
+					"metadata": {
+						"color": null,
+						"folded": false
+					}
+				}
+			},
+			"metadata": {
+				"color": null,
+				"folded": false
+			}
+		},
+		"Definitions": {
+			"files": [
+
+			],
+			"folders": {
+
+			},
+			"metadata": {
+				"color": null,
+				"folded": false
+			}
+		},
+		"Themes": {
+			"files": [
+				"default-theme.cfg"
+			],
+			"folders": {
+
+			},
+			"metadata": {
+				"color": null,
+				"folded": false
+			}
+		},
+		"Timelines": {
+			"files": [
+				"timeline-1647162430.json"
+			],
+			"folders": {
+
+			},
+			"metadata": {
+				"color": null,
+				"folded": false
+			}
+		}
+	}
+}

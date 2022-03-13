@@ -5,6 +5,7 @@ export var Player : PackedScene
 onready var _anchor := $Center/Anchor
 onready var _navigation := $Center/Anchor/Navigation
 onready var _restart_music_timer := $RestartMusicTimer
+onready var _dialog := $Dialog
 
 var _player : KinematicBody2D
 
@@ -14,12 +15,16 @@ func _ready() -> void:
 
 	play_music()
 
-	var _error := Audio.connect("music_finished", self, "restart_music_timer")
+	var _error = Audio.connect("music_finished", self, "restart_music_timer")
 
 	_player = Player.instance()
 	Generation.make_rooms(_navigation, _player)
 
 	Variables.current_navigation = _navigation
+
+	yield(get_tree().create_timer(2.0), "timeout")
+
+	_dialog.debug()
 
 func play_music() -> void:
 	randomize()

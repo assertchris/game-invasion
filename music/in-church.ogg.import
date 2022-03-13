@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/in-church.ogg-924c3080615bb7d173e034d44ff7b202.oggstr"
+
+[deps]
+
+source_file="res://music/in-church.ogg"
+dest_files=[ "res://.import/in-church.ogg-924c3080615bb7d173e034d44ff7b202.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

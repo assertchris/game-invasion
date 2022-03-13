@@ -1,0 +1,20 @@
+{
+	"color": "#fffde047",
+	"description": "",
+	"display_name": "Survivor",
+	"display_name_bool": true,
+	"id": "character-1647174451.json",
+	"mirror_portraits": false,
+	"name": "male-survivor-3",
+	"nickname": "",
+	"nickname_bool": false,
+	"offset_x": 75,
+	"offset_y": 0,
+	"portraits": [
+		{
+			"name": "Default",
+			"path": "res://images/avatars/yellow-male-3.png"
+		}
+	],
+	"scale": 30
+}

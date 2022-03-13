@@ -71,10 +71,6 @@ func add_player(player : Player, move_to : int) -> void:
 				survivors.append(survivor)
 				survivor.get_parent().remove_child(survivor)
 
-	# if we add the player without setting this, the player
-	# will enter an exit body before being correctly positioned
-	player.global_position = Vector2(-INF, -INF)
-
 	# this drops most race condition errors when the player is added to the new room
 	yield(get_tree().create_timer(0.05), "timeout")
 

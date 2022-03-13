@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/marche-funebre.ogg-c16666be5b542f2b91bcf7136be8bbbb.oggstr"
+
+[deps]
+
+source_file="res://music/marche-funebre.ogg"
+dest_files=[ "res://.import/marche-funebre.ogg-c16666be5b542f2b91bcf7136be8bbbb.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

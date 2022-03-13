@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/song-of-the-lark.ogg-b5bdf69b639d1cb58f2a9be489e73e80.oggstr"
+
+[deps]
+
+source_file="res://music/song-of-the-lark.ogg"
+dest_files=[ "res://.import/song-of-the-lark.ogg-b5bdf69b639d1cb58f2a9be489e73e80.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0

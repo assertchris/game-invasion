@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://nodes/globals/constants.gd" type="Script" id=1]
 [ext_resource path="res://images/tiles.png" type="Texture" id=2]
@@ -14,12 +14,18 @@
 [ext_resource path="res://music/mama.ogg" type="AudioStream" id=12]
 [ext_resource path="res://music/morning-prayer.ogg" type="AudioStream" id=13]
 [ext_resource path="res://music/old-french-song.ogg" type="AudioStream" id=14]
+[ext_resource path="res://music/song-of-the-lark.ogg" type="AudioStream" id=15]
+[ext_resource path="res://music/song-of-the-reapers.ogg" type="AudioStream" id=16]
+[ext_resource path="res://music/marche-funebre.ogg" type="AudioStream" id=17]
+[ext_resource path="res://music/chanson-triste.ogg" type="AudioStream" id=18]
+[ext_resource path="res://music/autumn-song.ogg" type="AudioStream" id=19]
+[ext_resource path="res://music/in-church.ogg" type="AudioStream" id=20]
 
 [node name="Constants" type="Node"]
 script = ExtResource( 1 )
 tiles = ExtResource( 2 )
-menu_tracks = [ ExtResource( 14 ), ExtResource( 13 ) ]
-level_tracks = [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 10 ) ]
+menu_tracks = [ ExtResource( 14 ), ExtResource( 13 ), ExtResource( 19 ) ]
+level_tracks = [ ExtResource( 12 ), ExtResource( 11 ), ExtResource( 8 ), ExtResource( 9 ), ExtResource( 5 ), ExtResource( 7 ), ExtResource( 10 ), ExtResource( 15 ), ExtResource( 16 ), ExtResource( 20 ), ExtResource( 18 ), ExtResource( 17 ) ]
 tree_doodad = ExtResource( 3 )
 grave_doodad = ExtResource( 4 )
 house_doodad = ExtResource( 6 )

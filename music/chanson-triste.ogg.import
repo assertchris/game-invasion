@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/chanson-triste.ogg-02f16ff10ab65b2cd6b120d50f7d9681.oggstr"
+
+[deps]
+
+source_file="res://music/chanson-triste.ogg"
+dest_files=[ "res://.import/chanson-triste.ogg-02f16ff10ab65b2cd6b120d50f7d9681.oggstr" ]
+
+[params]
+
+loop=false
+loop_offset=0
