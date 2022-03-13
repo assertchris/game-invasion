@@ -71,9 +71,8 @@ func _on_Aquisition_body_entered(body: Node) -> void:
 		return
 
 	is_following_player = true
+	emit_signal("acquired", self)
 
 	_circle_animator.play_backwards("Show")
 	yield(_circle_animator, "animation_finished")
 	_circle.visible = false
-
-	emit_signal("acquired", self)

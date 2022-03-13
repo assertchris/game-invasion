@@ -139,6 +139,8 @@ func on_body_entered(body : Node, neighbour : int, move_to : int) -> void:
 	found_neighbour.enter_with_player(move_to)
 
 func enter_with_player(move_to : int) -> void:
+	get_tree().call_group("exits", "disable_collider")
+
 	if Variables.current_room:
 		Variables.player_last_position = Variables.current_player.global_position
 		Variables.current_room.position = Constants.rooms_hidden_offset
@@ -147,8 +149,6 @@ func enter_with_player(move_to : int) -> void:
 			Variables.current_room.visible = false
 
 		Variables.current_room.hide()
-
-	get_tree().call_group("exits", "disable_collider")
 
 	Variables.current_player.path = PoolVector2Array()
 
