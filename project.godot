@@ -32,7 +32,7 @@ _global_script_classes=[ {
 "base": "StaticBody2D",
 "class": "Survivor",
 "language": "GDScript",
-"path": "res://nodes/survivor.gd"
+"path": "res://nodes/survivors/survivor.gd"
 } ]
 _global_script_class_icons={
 "Doodad": "",

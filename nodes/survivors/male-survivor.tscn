@@ -1,0 +1,21 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://nodes/survivors/survivor.tscn" type="PackedScene" id=1]
+[ext_resource path="res://nodes/survivors/male-survivor.gd" type="Script" id=2]
+[ext_resource path="res://images/sprites.png" type="Texture" id=3]
+
+[sub_resource type="AtlasTexture" id=1]
+atlas = ExtResource( 3 )
+region = Rect2( 12, 0, 12, 12 )
+
+[sub_resource type="CircleShape2D" id=2]
+radius = 2.0
+
+[node name="MaleSurvivor" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Sprite" parent="." index="1"]
+texture = SubResource( 1 )
+
+[node name="Collider" parent="." index="2"]
+shape = SubResource( 2 )

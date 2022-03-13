@@ -75,5 +75,5 @@ const rooms_hidden_offset := Vector2(-140, -140)
 const rooms_change_visibility := true
 
 const survivors_min_per_room := 0
-const survivors_max_per_room := 2
+const survivors_max_per_room := 1
 const survivors_variance := 32

@@ -13,7 +13,8 @@ func _ready() -> void:
 	yield(get_tree().create_timer(0.25), "timeout")
 
 	play_music()
-	Audio.connect("music_finished", self, "restart_music_timer")
+
+	var _error := Audio.connect("music_finished", self, "restart_music_timer")
 
 	_player = Player.instance()
 	Generation.make_rooms(_navigation, _player)
@@ -39,8 +40,8 @@ func _unhandled_input(event: InputEvent) -> void:
 
 			for survivor in get_tree().get_nodes_in_group("survivors"):
 				var variance = Vector2(
-					rand_range(Constants.survivors_variance / -2, Constants.survivors_variance / 2),
-					rand_range(Constants.survivors_variance / -2, Constants.survivors_variance / 2)
+					rand_range(round(Constants.survivors_variance / -2.0), round(Constants.survivors_variance / 2.0)),
+					rand_range(round(Constants.survivors_variance / -2.0), round(Constants.survivors_variance / 2.0))
 				)
 
 				var variant_path = Variables.current_navigation.get_simple_path(_player.position, position + variance, false)

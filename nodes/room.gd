@@ -1,7 +1,7 @@
 extends YSort
 class_name GameRoom
 
-export var survivor_scene : PackedScene
+export (Array, PackedScene) var survivor_scenes
 
 onready var _roads := $Roads
 onready var _doodads := $Doodads
@@ -75,6 +75,9 @@ func add_player(player : Player, move_to : int) -> void:
 	# will enter an exit body before being correctly positioned
 	player.global_position = Vector2(-INF, -INF)
 
+	# this drops most race condition errors when the player is added to the new room
+	yield(get_tree().create_timer(0.05), "timeout")
+
 	add_child(player)
 
 	var place_position : Vector2
@@ -102,17 +105,14 @@ func add_player(player : Player, move_to : int) -> void:
 
 	for survivor in survivors:
 		_survivors.add_child(survivor)
-
-		survivor.global_position = player.global_position
+		survivor.path = PoolVector2Array()
 
 		var variance = Vector2(
-			rand_range(Constants.survivors_variance / -2, Constants.survivors_variance / 2),
-			rand_range(Constants.survivors_variance / -2, Constants.survivors_variance / 2)
+			rand_range(round(Constants.survivors_variance / -2.0), round(Constants.survivors_variance / 2.0)),
+			rand_range(round(Constants.survivors_variance / -2.0), round(Constants.survivors_variance / 2.0))
 		)
 
-		var variant_path = Variables.current_navigation.get_simple_path(player.global_position, player.global_position + variance, false)
-
-		survivor.follow(variant_path)
+		survivor.global_position = player.global_position + variance
 
 func _on_Top_body_entered(body: Node) -> void:
 	on_body_entered(body, Constants.neighbours.top, Constants.neighbours.bottom)
@@ -195,10 +195,12 @@ func hide() -> void:
 	pass
 
 func spawn_survivors() -> void:
+	randomize()
+
 	var used_coordinates := []
 
 	for i in rand_range(Constants.survivors_min_per_room, Constants.survivors_max_per_room):
-		var new_survivor := survivor_scene.instance()
+		var new_survivor : Survivor = survivor_scenes[randi() % survivor_scenes.size()].instance()
 		_survivors.add_child(new_survivor)
 
 		var coordinates = Vector2(randi() % Constants.tiles_width, randi() % Constants.tiles_width)

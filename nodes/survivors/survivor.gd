@@ -1,8 +1,8 @@
 extends StaticBody2D
 class_name Survivor
 
-onready var _animator := $Animator
 onready var _circle := $Circle
+onready var _circle_animator := $CircleAnimator
 
 var path := PoolVector2Array()
 var is_following_player := false
@@ -45,27 +45,27 @@ func _on_Proximity_body_entered(body: Node) -> void:
 	if not body is Player:
 		return
 
-	_animator.play("Show")
+	_circle_animator.play("Show")
 
 
 func _on_Proximity_body_exited(body: Node) -> void:
 	if not body is Player:
 		return
 
-	_animator.play_backwards("Show")
+	_circle_animator.play_backwards("Show")
 
-func _on_Aquisition_body_shape_entered(body_rid: RID, body: Node, body_shape_index: int, local_shape_index: int) -> void:
+func follow(new_path : PoolVector2Array) -> void:
+	if not is_following_player:
+		return
+
+	set_path(new_path)
+
+func _on_Aquisition_body_entered(body: Node) -> void:
 	if not body is Player:
 		return
 
 	is_following_player = true
 
-	_animator.play_backwards("Show")
-	yield(_animator, "animation_finished")
+	_circle_animator.play_backwards("Show")
+	yield(_circle_animator, "animation_finished")
 	_circle.visible = false
-
-func follow(path : PoolVector2Array) -> void:
-	if not is_following_player:
-		return
-
-	set_path(path)

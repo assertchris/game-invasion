@@ -2,7 +2,7 @@
 
 [ext_resource path="res://nodes/globals/generation.gd" type="Script" id=1]
 [ext_resource path="res://nodes/room.tscn" type="PackedScene" id=2]
-[ext_resource path="res://nodes/survivor.tscn" type="PackedScene" id=3]
+[ext_resource path="res://nodes/survivors/survivor.tscn" type="PackedScene" id=3]
 
 [node name="Generation" type="Node"]
 script = ExtResource( 1 )
