@@ -202,10 +202,11 @@ func spawn_survivors() -> void:
 		var potential_characters := []
 
 		for character in Generation.characters_data:
-			if new_survivor.is_in_group("males") and "male" in character.name:
-				potential_characters.append(character)
-			if new_survivor.is_in_group("females") and "female" in character.name:
-				potential_characters.append(character)
+			if "survivor" in character.name:
+				if new_survivor.is_in_group("males") and "-male-" in character.name:
+					potential_characters.append(character)
+				if new_survivor.is_in_group("females") and "-female-" in character.name:
+					potential_characters.append(character)
 
 		if potential_characters.size() > 0:
 			new_survivor.character = potential_characters[randi() % potential_characters.size()]

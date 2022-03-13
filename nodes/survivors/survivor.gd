@@ -67,6 +67,9 @@ func _on_Aquisition_body_entered(body: Node) -> void:
 	if not body is Player:
 		return
 
+	if is_following_player:
+		return
+
 	is_following_player = true
 
 	_circle_animator.play_backwards("Show")
