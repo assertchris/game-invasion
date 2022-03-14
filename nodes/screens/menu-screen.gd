@@ -31,6 +31,5 @@ func _on_QuitButton_pressed() -> void:
 func do_hide(new_screen : int) -> void:
 	if new_screen == Constants.screens.play:
 		Audio.fade_out()
-		yield(Audio, "faded_out")
 
 	.do_hide(new_screen)

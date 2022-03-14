@@ -22,7 +22,7 @@ func fade_out() -> void:
 	while current_local_volume >= 0:
 		current_local_volume -= 0.05
 		_music_player.volume_db = linear2db(current_local_volume)
-		yield(get_tree().create_timer(0.05), "timeout")
+		yield(get_tree().create_timer(0.03), "timeout")
 
 	stop_music()
 	emit_signal("faded_out")

@@ -1,12 +1,49 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://nodes/screens/screen.gd" type="Script" id=1]
+
+[sub_resource type="Shader" id=1]
+code = "shader_type canvas_item;
+
+// from ddrkirby.com/articles/shader-based-transitions/shader-based-transitions.html
+
+uniform float amount : hint_range(0, 1) = 0.0;
+uniform float bandSize = 40f;
+
+void fragment() {
+	float yFraction = fract(FRAGCOORD.y / bandSize);
+	float yDistance = abs(yFraction - 0.5);
+    
+	if (yDistance + UV.y < amount * 2f) {
+		discard;
+	}
+}
+"
+
+[sub_resource type="ShaderMaterial" id=2]
+shader = SubResource( 1 )
+shader_param/amount = 0.0
+shader_param/bandSize = 20.0
 
 [node name="Screen" type="MarginContainer"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 mouse_filter = 2
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Transition" type="CanvasLayer" parent="."]
+layer = 5
+follow_viewport_enable = true
+
+[node name="Cover" type="ColorRect" parent="Transition"]
+material = SubResource( 2 )
+anchor_right = 1.0
+anchor_bottom = 1.0
+mouse_filter = 2
+color = Color( 0.152941, 0.152941, 0.164706, 1 )
 __meta__ = {
 "_edit_use_anchors_": false
 }
