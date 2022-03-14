@@ -22,7 +22,7 @@ void fragment() {
 
 [sub_resource type="ShaderMaterial" id=2]
 shader = SubResource( 1 )
-shader_param/amount = 0.0
+shader_param/amount = 1.0
 shader_param/bandSize = 20.0
 
 [node name="Screen" type="MarginContainer"]

@@ -13,11 +13,11 @@ var _player : KinematicBody2D
 var can_show_dialog := true
 
 func _ready() -> void:
-	# DEBUG add delay because play is loaded first
-	yield(get_tree().create_timer(0.25), "timeout")
+	Variables.current_room = null
+	Variables.current_player = null
+	Variables.player_last_position = Vector2.INF
 
 	play_music()
-
 	Audio.connect("music_finished", self, "restart_music_timer")
 
 	Variables.current_player = Player.instance()

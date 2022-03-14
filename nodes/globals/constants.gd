@@ -5,10 +5,12 @@ export (Array, AudioStream) var menu_tracks
 export (Array, AudioStream) var level_tracks
 
 export (PackedScene) var credits_scene
+export (PackedScene) var game_over_scene
 export (PackedScene) var menu_scene
 export (PackedScene) var patrons_scene
 export (PackedScene) var play_scene
 export (PackedScene) var settings_scene
+export (PackedScene) var summary_scene
 
 const tiles_width := 11
 const tiles_count := 4
@@ -94,16 +96,20 @@ enum survivors_statuses {
 enum screens {
 	none,
 	credits,
+	game_over,
 	menu,
 	patrons,
 	play,
 	settings,
+	summary,
 }
 
 onready var screens_scenes := {
 	screens.credits : credits_scene,
+	screens.game_over : game_over_scene,
 	screens.menu : menu_scene,
 	screens.patrons : patrons_scene,
 	screens.play : play_scene,
 	screens.settings : settings_scene,
+	screens.summary : summary_scene,
 }

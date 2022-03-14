@@ -96,7 +96,7 @@ func add_player(move_to : int) -> void:
 		Constants.neighbours.left:
 			place_position = _left_place_position.global_position
 
-	if Variables.player_last_position:
+	if Variables.player_last_position and Variables.player_last_position != Vector2.INF:
 		if is_horizontal:
 			Variables.current_player.global_position = Vector2(place_position.x, Variables.player_last_position.y)
 		else:
@@ -135,6 +135,10 @@ func on_body_entered(body : Node, neighbour : int, move_to : int) -> void:
 		for survivor in get_tree().get_nodes_in_group("survivors"):
 			if survivor.status == Constants.survivors_statuses.following:
 				survivor.rescue()
+
+	if room_type == Constants.rooms_types.last and neighbour == sanctuary_side:
+		Audio.fade_out()
+		Screens.change_screen(Constants.screens.summary)
 
 	if not has_neighbour(neighbour):
 		return
@@ -208,6 +212,12 @@ func show() -> void:
 
 		if sanctuary_side == Constants.neighbours.left:
 			_left_sanctuary.visible = true
+
+		if room_type == Constants.rooms_types.last:
+			_top_sanctuary.is_ending = true
+			_right_sanctuary.is_ending = true
+			_bottom_sanctuary.is_ending = true
+			_left_sanctuary.is_ending = true
 
 func hide() -> void:
 	pass
