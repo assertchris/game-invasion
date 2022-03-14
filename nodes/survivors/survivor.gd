@@ -2,15 +2,18 @@ extends StaticBody2D
 class_name Survivor
 
 signal acquired
+signal rescued
 
 onready var _circle := $Circle
 onready var _circle_animator := $CircleAnimator
 
 var path := PoolVector2Array()
-var is_following_player := false
 var character : Dictionary
+var status : int
+var was_following := false
 
 func _ready():
+	status = Constants.survivors_statuses.none
 	set_process(false)
 
 func _process(delta):
@@ -43,13 +46,11 @@ func set_path(value):
 
 	set_process(true)
 
-
 func _on_Proximity_body_entered(body: Node) -> void:
 	if not body is Player:
 		return
 
 	_circle_animator.play("Show")
-
 
 func _on_Proximity_body_exited(body: Node) -> void:
 	if not body is Player:
@@ -58,7 +59,7 @@ func _on_Proximity_body_exited(body: Node) -> void:
 	_circle_animator.play_backwards("Show")
 
 func follow(new_path : PoolVector2Array) -> void:
-	if not is_following_player:
+	if status != Constants.survivors_statuses.following:
 		return
 
 	set_path(new_path)
@@ -67,12 +68,18 @@ func _on_Aquisition_body_entered(body: Node) -> void:
 	if not body is Player:
 		return
 
-	if is_following_player:
+	if was_following:
 		return
 
-	is_following_player = true
+	was_following = true
+	status = Constants.survivors_statuses.following
 	emit_signal("acquired", self)
 
 	_circle_animator.play_backwards("Show")
 	yield(_circle_animator, "animation_finished")
 	_circle.visible = false
+
+func rescue() -> void:
+	status = Constants.survivors_statuses.rescued
+	visible = false
+	emit_signal("rescued", self)

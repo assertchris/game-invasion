@@ -84,6 +84,13 @@ const survivors_min_per_room := 0
 const survivors_max_per_room := 1
 const survivors_variance := 32
 
+enum survivors_statuses {
+	none,
+	following,
+	rescued,
+	captured,
+}
+
 enum screens {
 	none,
 	credits,

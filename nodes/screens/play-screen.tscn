@@ -1,9 +1,16 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://nodes/screens/screen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/screens/play-screen.gd" type="Script" id=2]
 [ext_resource path="res://nodes/player.tscn" type="PackedScene" id=3]
 [ext_resource path="res://nodes/dialog.tscn" type="PackedScene" id=4]
+[ext_resource path="res://resources/pixel-rpg.tres" type="DynamicFont" id=5]
+
+[sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 6.0
+content_margin_right = 6.0
+content_margin_top = 6.0
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
 
 [node name="PlayScreen" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -28,13 +35,34 @@ mouse_filter = 2
 
 [node name="Dialog" parent="." index="1" instance=ExtResource( 4 )]
 
-[node name="RestartMusicTimer" type="Timer" parent="." index="2"]
+[node name="Status" type="CanvasLayer" parent="." index="2"]
+
+[node name="RescuedLabel" type="Label" parent="Status" index="0"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+margin_top = -16.0
+margin_right = 40.0
+custom_fonts/font = ExtResource( 5 )
+custom_styles/normal = SubResource( 1 )
+text = "0/0 rescued"
+align = 1
+valign = 1
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="RestartMusicTimer" type="Timer" parent="." index="3"]
 wait_time = 15.0
 one_shot = true
 
-[node name="AcquireSurvivorTimer" type="Timer" parent="." index="3"]
+[node name="SurvivorDialogTimer" type="Timer" parent="." index="4"]
 wait_time = 10.0
 one_shot = true
 
+[node name="UpdateStatusTimer" type="Timer" parent="." index="5"]
+wait_time = 0.25
+autostart = true
+
 [connection signal="timeout" from="RestartMusicTimer" to="." method="_on_RestartMusicTimer_timeout"]
-[connection signal="timeout" from="AcquireSurvivorTimer" to="." method="_on_AcquireSurvivorTimer_timeout"]
+[connection signal="timeout" from="SurvivorDialogTimer" to="." method="_on_SurvivorDialogTimer_timeout"]
+[connection signal="timeout" from="UpdateStatusTimer" to="." method="_on_UpdateStatusTimer_timeout"]

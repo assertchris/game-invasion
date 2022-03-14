@@ -106,6 +106,10 @@ func make_rooms(parent) -> void:
 		next_room.position = Constants.rooms_hidden_offset
 		next_room.spawn_survivors()
 
+		if next_room_type == Constants.rooms_types.last:
+			var free_side = next_room.free_side()
+			next_room.sanctuary_side = free_side
+
 		if Constants.rooms_change_visibility:
 			next_room.visible = false
 
@@ -123,4 +127,6 @@ func make_rooms(parent) -> void:
 	for room in Variables.rooms_made:
 		debug_room_positions.append(room.room_position)
 
-	first_room.enter_with_player(first_room.free_side())
+	var free_side = first_room.free_side()
+	first_room.sanctuary_side = free_side
+	first_room.enter_with_player(free_side)

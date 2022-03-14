@@ -1,4 +1,4 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://nodes/room.gd" type="Script" id=1]
 [ext_resource path="res://resources/tiles.tres" type="TileSet" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://nodes/survivors/male-survivor.tscn" type="PackedScene" id=5]
 [ext_resource path="res://nodes/survivors/female-survivor.tscn" type="PackedScene" id=6]
 [ext_resource path="res://nodes/survivors/canine-survivor.tscn" type="PackedScene" id=7]
+[ext_resource path="res://nodes/sanctuary.tscn" type="PackedScene" id=8]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 1.5 )
@@ -42,6 +43,9 @@ margin = Rect2( 0, 0.5, 0, 0 )
 
 [node name="Room" type="YSort"]
 script = ExtResource( 1 )
+__meta__ = {
+"_edit_horizontal_guides_": [ 90.0 ]
+}
 survivor_scenes = [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ]
 
 [node name="Roads" type="TileMap" parent="."]
@@ -60,7 +64,7 @@ format = 1
 [node name="Top" parent="Exits" instance=ExtResource( 3 )]
 
 [node name="Collider" parent="Exits/Top" index="0"]
-position = Vector2( 66, 0 )
+position = Vector2( 66, 2 )
 shape = SubResource( 1 )
 
 [node name="Right" parent="Exits" instance=ExtResource( 3 )]
@@ -116,6 +120,20 @@ texture = SubResource( 7 )
 modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( -12, 66 )
 texture = SubResource( 8 )
+
+[node name="Sanctuaries" type="Node2D" parent="."]
+
+[node name="Top" parent="Sanctuaries" instance=ExtResource( 8 )]
+position = Vector2( 36, -52 )
+
+[node name="Right" parent="Sanctuaries" instance=ExtResource( 8 )]
+position = Vector2( 136, 42 )
+
+[node name="Bottom" parent="Sanctuaries" instance=ExtResource( 8 )]
+position = Vector2( 36, 136 )
+
+[node name="Left" parent="Sanctuaries" instance=ExtResource( 8 )]
+position = Vector2( -64, 42 )
 
 [connection signal="body_entered" from="Exits/Top" to="." method="_on_Top_body_entered"]
 [connection signal="body_entered" from="Exits/Right" to="." method="_on_Right_body_entered"]

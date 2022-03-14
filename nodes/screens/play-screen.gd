@@ -6,10 +6,11 @@ onready var _anchor := $Center/Anchor
 onready var _navigation := $Center/Anchor/Navigation
 onready var _restart_music_timer := $RestartMusicTimer
 onready var _dialog := $Dialog
-onready var _acquire_survivor_timer := $AcquireSurvivorTimer
+onready var _survivor_dialog_timer := $SurvivorDialogTimer
+onready var _rescued_label := $Status/RescuedLabel
 
 var _player : KinematicBody2D
-var can_show_acquired_dialog := true
+var can_show_dialog := true
 
 func _ready() -> void:
 	# DEBUG add delay because play is loaded first
@@ -25,6 +26,7 @@ func _ready() -> void:
 	Generation.make_rooms(Variables.current_navigation)
 
 	get_tree().call_group("survivors", "connect", "acquired", self, "on_acquired")
+	get_tree().call_group("survivors", "connect", "rescued", self, "on_rescued")
 
 func play_music() -> void:
 	randomize()
@@ -59,16 +61,39 @@ func restart_music_timer() -> void:
 func _on_RestartMusicTimer_timeout() -> void:
 	play_music()
 
-func _on_AcquireSurvivorTimer_timeout() -> void:
-	can_show_acquired_dialog = true
-
 func on_acquired(survivor : Survivor) -> void:
-	if not can_show_acquired_dialog:
+	if not can_show_dialog:
 		return
 
 	if not survivor.character:
 		return
 
-	can_show_acquired_dialog = false
+	can_show_dialog = false
 	_dialog.show_acquired_dialog(survivor.character)
-	_acquire_survivor_timer.start()
+	_survivor_dialog_timer.start()
+
+func on_rescued(survivor : Survivor) -> void:
+	if not can_show_dialog:
+		return
+
+	if not survivor.character:
+		return
+
+	can_show_dialog = false
+	_dialog.show_rescued_dialog(survivor.character)
+	_survivor_dialog_timer.start()
+
+func _on_SurvivorDialogTimer_timeout() -> void:
+	can_show_dialog = true
+
+func _on_UpdateStatusTimer_timeout() -> void:
+	var total := 0
+	var rescued := 0
+
+	for survivor in get_tree().get_nodes_in_group("survivors"):
+		total += 1
+
+		if survivor.status == Constants.survivors_statuses.rescued:
+			rescued += 1
+
+	_rescued_label.text = str(rescued) + "/" + str(total) + " rescued"

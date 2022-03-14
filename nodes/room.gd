@@ -14,11 +14,16 @@ onready var _top_arrow := $Arrows/Top
 onready var _right_arrow := $Arrows/Right
 onready var _bottom_arrow := $Arrows/Bottom
 onready var _left_arrow := $Arrows/Left
+onready var _top_sanctuary := $Sanctuaries/Top
+onready var _right_sanctuary := $Sanctuaries/Right
+onready var _bottom_sanctuary := $Sanctuaries/Bottom
+onready var _left_sanctuary := $Sanctuaries/Left
 
 var layout : Array
 
 var room_position : Vector2
 var room_type : int
+var sanctuary_side : int
 
 func _ready() -> void:
 	layout = Generation.get_room_layout()
@@ -67,7 +72,7 @@ func add_player(move_to : int) -> void:
 		parent.remove_child(Variables.current_player)
 
 		for survivor in get_tree().get_nodes_in_group("survivors"):
-			if survivor.is_following_player:
+			if survivor.status == Constants.survivors_statuses.following:
 				survivors.append(survivor)
 				survivor.get_parent().remove_child(survivor)
 
@@ -126,6 +131,11 @@ func on_body_entered(body : Node, neighbour : int, move_to : int) -> void:
 	if not body is Player:
 		return
 
+	if room_type == Constants.rooms_types.first and neighbour == sanctuary_side:
+		for survivor in get_tree().get_nodes_in_group("survivors"):
+			if survivor.status == Constants.survivors_statuses.following:
+				survivor.rescue()
+
 	if not has_neighbour(neighbour):
 		return
 
@@ -161,8 +171,6 @@ func enter_with_player(move_to : int) -> void:
 	Variables.current_room.show()
 	Variables.current_room.add_player(move_to)
 
-	print("new room position: " + str(Variables.current_room.room_position))
-
 	yield(get_tree().create_timer(0.1), "timeout")
 
 	get_tree().call_group("exits", "enable_collider")
@@ -172,6 +180,7 @@ func enter_with_player(move_to : int) -> void:
 
 func show() -> void:
 	get_tree().call_group("arrows", "set_visible", false)
+	get_tree().call_group("sanctuaries", "set_visible", false)
 
 	yield(get_tree().create_timer(0.1), "timeout")
 
@@ -186,6 +195,19 @@ func show() -> void:
 
 	if has_neighbour(Constants.neighbours.left):
 		_left_arrow.visible = true
+
+	if room_type == Constants.rooms_types.first or room_type == Constants.rooms_types.last:
+		if sanctuary_side == Constants.neighbours.top:
+			_top_sanctuary.visible = true
+
+		if sanctuary_side == Constants.neighbours.right:
+			_right_sanctuary.visible = true
+
+		if sanctuary_side == Constants.neighbours.bottom:
+			_bottom_sanctuary.visible = true
+
+		if sanctuary_side == Constants.neighbours.left:
+			_left_sanctuary.visible = true
 
 func hide() -> void:
 	pass
