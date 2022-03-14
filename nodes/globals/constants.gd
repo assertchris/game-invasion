@@ -4,6 +4,12 @@ export var tiles : Texture
 export (Array, AudioStream) var menu_tracks
 export (Array, AudioStream) var level_tracks
 
+export (PackedScene) var credits_scene
+export (PackedScene) var menu_scene
+export (PackedScene) var patrons_scene
+export (PackedScene) var play_scene
+export (PackedScene) var settings_scene
+
 const tiles_width := 11
 const tiles_count := 4
 
@@ -77,3 +83,20 @@ const rooms_change_visibility := true
 const survivors_min_per_room := 0
 const survivors_max_per_room := 1
 const survivors_variance := 32
+
+enum screens {
+	none,
+	credits,
+	menu,
+	patrons,
+	play,
+	settings,
+}
+
+onready var screens_scenes := {
+	screens.credits : credits_scene,
+	screens.menu : menu_scene,
+	screens.patrons : patrons_scene,
+	screens.play : play_scene,
+	screens.settings : settings_scene,
+}

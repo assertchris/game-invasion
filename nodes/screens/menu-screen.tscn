@@ -1,0 +1,73 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://nodes/screens/screen.tscn" type="PackedScene" id=1]
+[ext_resource path="res://nodes/screens/menu-screen.gd" type="Script" id=2]
+[ext_resource path="res://resources/menu-theme.tres" type="Theme" id=3]
+
+[node name="MenuScreen" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Center" type="CenterContainer" parent="." index="0"]
+margin_right = 180.0
+margin_bottom = 180.0
+
+[node name="Items" type="VBoxContainer" parent="Center" index="0"]
+margin_left = 67.0
+margin_top = 28.0
+margin_right = 113.0
+margin_bottom = 152.0
+custom_constants/separation = 8
+
+[node name="ContinueButton" type="Button" parent="Center/Items" index="0"]
+margin_right = 46.0
+margin_bottom = 14.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 3 )
+text = "continue"
+
+[node name="NewGameButton" type="Button" parent="Center/Items" index="1"]
+margin_top = 22.0
+margin_right = 46.0
+margin_bottom = 36.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 3 )
+text = "new game"
+
+[node name="SettingsButton" type="Button" parent="Center/Items" index="2"]
+margin_top = 44.0
+margin_right = 46.0
+margin_bottom = 58.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 3 )
+text = "settings"
+
+[node name="CreditsButton" type="Button" parent="Center/Items" index="3"]
+margin_top = 66.0
+margin_right = 46.0
+margin_bottom = 80.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 3 )
+text = "credits"
+
+[node name="PatronsButton" type="Button" parent="Center/Items" index="4"]
+margin_top = 88.0
+margin_right = 46.0
+margin_bottom = 102.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 3 )
+text = "patrons"
+
+[node name="QuitButton" type="Button" parent="Center/Items" index="5"]
+margin_top = 110.0
+margin_right = 46.0
+margin_bottom = 124.0
+mouse_default_cursor_shape = 2
+theme = ExtResource( 3 )
+text = "quit"
+
+[connection signal="pressed" from="Center/Items/ContinueButton" to="." method="_on_ContinueButton_pressed"]
+[connection signal="pressed" from="Center/Items/NewGameButton" to="." method="_on_NewGameButton_pressed"]
+[connection signal="pressed" from="Center/Items/SettingsButton" to="." method="_on_SettingsButton_pressed"]
+[connection signal="pressed" from="Center/Items/CreditsButton" to="." method="_on_CreditsButton_pressed"]
+[connection signal="pressed" from="Center/Items/PatronsButton" to="." method="_on_PatronsButton_pressed"]
+[connection signal="pressed" from="Center/Items/QuitButton" to="." method="_on_QuitButton_pressed"]

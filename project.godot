@@ -81,7 +81,7 @@ _global_script_class_icons={
 [application]
 
 config/name="Invasion"
-run/main_scene="res://nodes/screens/play-screen.tscn"
+run/main_scene="res://nodes/screens/menu-screen.tscn"
 config/icon="res://images/icon.png"
 
 [autoload]
