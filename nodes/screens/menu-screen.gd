@@ -28,7 +28,9 @@ func _on_PatronsButton_pressed() -> void:
 func _on_QuitButton_pressed() -> void:
 	get_tree().quit()
 
-func do_hide(_new_screen : int) -> void:
-	Audio.fade_out()
-	yield(Audio, "faded_out")
-	.do_hide(_new_screen)
+func do_hide(new_screen : int) -> void:
+	if new_screen == Constants.screens.play:
+		Audio.fade_out()
+		yield(Audio, "faded_out")
+
+	.do_hide(new_screen)
