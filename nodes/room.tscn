@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=2]
+[gd_scene load_steps=19 format=2]
 
 [ext_resource path="res://nodes/room.gd" type="Script" id=1]
 [ext_resource path="res://resources/tiles.tres" type="TileSet" id=2]
@@ -8,18 +8,20 @@
 [ext_resource path="res://nodes/survivors/female-survivor.tscn" type="PackedScene" id=6]
 [ext_resource path="res://nodes/survivors/canine-survivor.tscn" type="PackedScene" id=7]
 [ext_resource path="res://nodes/sanctuary.tscn" type="PackedScene" id=8]
+[ext_resource path="res://nodes/soliders/male-soldier.tscn" type="PackedScene" id=9]
+[ext_resource path="res://nodes/soliders/female-soldier.tscn" type="PackedScene" id=10]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 64, 1.5 )
+extents = Vector2( 66, 6 )
 
 [sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 1.5, 64 )
+extents = Vector2( 6, 66 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 64, 1.5 )
+extents = Vector2( 66, 6 )
 
 [sub_resource type="RectangleShape2D" id=4]
-extents = Vector2( 1.5, 64 )
+extents = Vector2( 6, 66 )
 
 [sub_resource type="AtlasTexture" id=5]
 atlas = ExtResource( 4 )
@@ -47,42 +49,48 @@ __meta__ = {
 "_edit_horizontal_guides_": [ 90.0 ]
 }
 survivor_scenes = [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ]
+soldier_scenes = [ ExtResource( 9 ), ExtResource( 10 ) ]
 
 [node name="Roads" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 12, 12 )
 cell_custom_transform = Transform2D( 12, 0, 0, 12, 0, 0 )
 cell_tile_origin = 1
+collision_layer = 2
+collision_mask = 0
 format = 1
+tile_data = PoolIntArray( -131049, 1, 0, -65536, 1, 0, -65535, 1, 0, -65534, 1, 0, -65533, 1, 0, -65532, 1, 0, -65531, 1, 0, -65530, 1, 0, -65529, 1, 0, -65528, 1, 0, -65527, 1, 0, -65526, 1, 0, 65535, 1, 0, 0, 1, 0, 11, 1, 0, 131071, 1, 0, 65547, 1, 0, 196607, 1, 0, 131083, 1, 0, 131095, 1, 0, 262143, 1, 0, 196619, 1, 0, 327679, 1, 0, 262155, 1, 0, 393215, 1, 0, 327691, 1, 0, 458751, 1, 0, 393227, 1, 0, 524287, 1, 0, 458763, 1, 0, 589823, 1, 0, 524299, 1, 0, 655359, 1, 0, 589835, 1, 0, 720895, 1, 0, 655371, 1, 0, 720896, 1, 0, 720897, 1, 0, 720898, 1, 0, 720899, 1, 0, 720900, 1, 0, 720901, 1, 0, 720902, 1, 0, 720903, 1, 0, 720904, 1, 0, 720905, 1, 0, 720906, 1, 0 )
 
 [node name="Doodads" type="YSort" parent="."]
 
 [node name="Survivors" type="YSort" parent="."]
+
+[node name="Soldiers" type="YSort" parent="."]
 
 [node name="Exits" type="Node2D" parent="."]
 
 [node name="Top" parent="Exits" instance=ExtResource( 3 )]
 
 [node name="Collider" parent="Exits/Top" index="0"]
-position = Vector2( 66, 2 )
+position = Vector2( 66, -6 )
 shape = SubResource( 1 )
 
 [node name="Right" parent="Exits" instance=ExtResource( 3 )]
 
 [node name="Collider" parent="Exits/Right" index="0"]
-position = Vector2( 132, 66 )
+position = Vector2( 138, 66 )
 shape = SubResource( 2 )
 
 [node name="Bottom" parent="Exits" instance=ExtResource( 3 )]
 
 [node name="Collider" parent="Exits/Bottom" index="0"]
-position = Vector2( 66, 132 )
+position = Vector2( 66, 138 )
 shape = SubResource( 3 )
 
 [node name="Left" parent="Exits" instance=ExtResource( 3 )]
 
 [node name="Collider" parent="Exits/Left" index="0"]
-position = Vector2( 0, 66 )
+position = Vector2( -6, 66 )
 shape = SubResource( 4 )
 
 [node name="PlacePositions" type="Node2D" parent="."]
@@ -121,19 +129,20 @@ modulate = Color( 1, 1, 1, 0.501961 )
 position = Vector2( -12, 66 )
 texture = SubResource( 8 )
 
-[node name="Sanctuaries" type="Node2D" parent="."]
+[node name="Sanctuaries" type="YSort" parent="."]
 
 [node name="Top" parent="Sanctuaries" instance=ExtResource( 8 )]
-position = Vector2( 36, -52 )
+position = Vector2( 66, -30 )
 
 [node name="Right" parent="Sanctuaries" instance=ExtResource( 8 )]
-position = Vector2( 136, 42 )
+position = Vector2( 168, 66 )
 
 [node name="Bottom" parent="Sanctuaries" instance=ExtResource( 8 )]
-position = Vector2( 36, 136 )
+position = Vector2( 66, 162 )
+z_index = 5
 
 [node name="Left" parent="Sanctuaries" instance=ExtResource( 8 )]
-position = Vector2( -64, 42 )
+position = Vector2( -36, 66 )
 
 [connection signal="body_entered" from="Exits/Top" to="." method="_on_Top_body_entered"]
 [connection signal="body_entered" from="Exits/Right" to="." method="_on_Right_body_entered"]

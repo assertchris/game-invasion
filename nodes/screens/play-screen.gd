@@ -27,6 +27,7 @@ func _ready() -> void:
 
 	get_tree().call_group("survivors", "connect", "acquired", self, "on_acquired")
 	get_tree().call_group("survivors", "connect", "rescued", self, "on_rescued")
+	get_tree().call_group("soldiers", "connect", "captured", self, "on_captured")
 
 func play_music() -> void:
 	randomize()
@@ -41,7 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			randomize()
 
 			var position = get_local_mouse_position() - _anchor.rect_position
-			var path = _navigation.get_simple_path(Variables.current_player.position, position, false)
+			var path = Variables.current_navigation.get_simple_path(Variables.current_player.position, position, true)
 
 			Variables.current_player.set_path(path)
 
@@ -83,6 +84,8 @@ func on_rescued(survivor : Survivor) -> void:
 	_dialog.show_rescued_dialog(survivor.character)
 	_survivor_dialog_timer.start()
 
+	print("increase hope")
+
 func _on_SurvivorDialogTimer_timeout() -> void:
 	can_show_dialog = true
 
@@ -91,9 +94,29 @@ func _on_UpdateStatusTimer_timeout() -> void:
 	var rescued := 0
 
 	for survivor in get_tree().get_nodes_in_group("survivors"):
-		total += 1
+		if survivor.status != Constants.survivors_statuses.captured:
+			total += 1
 
 		if survivor.status == Constants.survivors_statuses.rescued:
 			rescued += 1
 
 	_rescued_label.text = str(rescued) + "/" + str(total) + " rescued"
+
+func _on_ChasePlayerTimer_timeout() -> void:
+	for soldier in get_tree().get_nodes_in_group("soldiers"):
+		if soldier.status == Constants.soldiers_statuses.following:
+			var path = _navigation.get_simple_path(soldier.position, Variables.current_player.position, false)
+			soldier.set_path(path)
+
+func on_captured(soldier : Soldier) -> void:
+	for survivor in get_tree().get_nodes_in_group("survivors"):
+		if survivor.status == Constants.survivors_statuses.following:
+			if not survivor.character:
+				continue
+
+			survivor.status = Constants.survivors_statuses.captured
+			_dialog.show_captured_dialog(survivor.character, soldier.character)
+			return
+
+	_dialog.show_harass_dialog(soldier.character)
+	print("decrease hope")

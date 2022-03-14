@@ -44,7 +44,7 @@ onready var tiles_doodads := {
 
 const tiles_set_names := {
 	tiles_types.road: "roads",
-	tiles_types.grass: "navigable",
+	tiles_types.grass: "grass",
 }
 
 const rooms_total := 9
@@ -68,6 +68,10 @@ const tiles_is_not_tile := [
 	tiles_types.house,
 ]
 
+const tiles_grouped := [
+	tiles_types.house,
+]
+
 const sprites_width := 12
 
 const player_speed = 100.0
@@ -82,6 +86,7 @@ enum neighbours {
 const rooms_hidden_offset := Vector2(-140, -140)
 const rooms_change_visibility := true
 
+const survivors_speed := 100.0
 const survivors_min_per_room := 0
 const survivors_max_per_room := 1
 const survivors_variance := 32
@@ -90,6 +95,18 @@ enum survivors_statuses {
 	none,
 	following,
 	rescued,
+	captured,
+}
+
+const soldiers_speed := 80.0
+const soldiers_patrol_speed := 20.0
+const soldiers_min_per_room := 0
+const soldiers_max_per_room := 1
+
+enum soldiers_statuses {
+	none,
+	patrolling,
+	following,
 	captured,
 }
 

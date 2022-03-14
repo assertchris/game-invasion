@@ -6,6 +6,7 @@ signal rescued
 
 onready var _circle := $Circle
 onready var _circle_animator := $CircleAnimator
+onready var _collider := $Collider
 
 var path := PoolVector2Array()
 var character : Dictionary
@@ -17,7 +18,7 @@ func _ready():
 	set_process(false)
 
 func _process(delta):
-	var move_distance = Constants.player_speed * delta
+	var move_distance = Constants.survivors_speed * delta
 	move_along_path(move_distance)
 
 func move_along_path(distance):
@@ -78,6 +79,8 @@ func _on_Aquisition_body_entered(body: Node) -> void:
 	_circle_animator.play_backwards("Show")
 	yield(_circle_animator, "animation_finished")
 	_circle.visible = false
+
+	_collider.disabled = true
 
 func rescue() -> void:
 	status = Constants.survivors_statuses.rescued

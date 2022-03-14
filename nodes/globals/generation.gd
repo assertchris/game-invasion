@@ -43,7 +43,7 @@ func get_room_layout() -> Array:
 func add_room_tiles(parent, layout: Array) -> void:
 	for y in range(Constants.tiles_width):
 		for x in range(Constants.tiles_width):
-			if Constants.tiles_is_not_tile.has(layout[y][x]):
+			if layout[y][x] in Constants.tiles_is_not_tile:
 				continue
 
 			var name = Constants.tiles_set_names[layout[y][x]]
@@ -51,13 +51,24 @@ func add_room_tiles(parent, layout: Array) -> void:
 			parent.set_cell(x, y, id)
 
 func add_room_doodads(parent, layout: Array) -> void:
+	var ignored := []
+
 	for y in range(Constants.tiles_width):
 		for x in range(Constants.tiles_width):
-			if Constants.tiles_is_not_doodad.has(layout[y][x]):
+			if layout[y][x] in Constants.tiles_is_not_doodad:
 				continue
+
+			if Vector2(x, y) in ignored:
+				continue
+
+			var doodad_size : Vector2
+
+			if layout[y][x] in Constants.tiles_grouped:
+				pass
 
 			var doodad = Constants.tiles_doodads[layout[y][x]].instance()
 			parent.add_child(doodad)
+			doodad.doodad_size = doodad_size
 
 			doodad.position = Vector2(
 				x * Constants.sprites_width + round(Constants.sprites_width / 2.0),
@@ -105,6 +116,7 @@ func make_rooms(parent) -> void:
 		next_room.room_type = next_room_type
 		next_room.position = Constants.rooms_hidden_offset
 		next_room.spawn_survivors()
+		next_room.spawn_soldiers()
 
 		if next_room_type == Constants.rooms_types.last:
 			var free_side = next_room.free_side()

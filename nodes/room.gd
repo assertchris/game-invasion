@@ -2,10 +2,12 @@ extends YSort
 class_name GameRoom
 
 export (Array, PackedScene) var survivor_scenes
+export (Array, PackedScene) var soldier_scenes
 
 onready var _roads := $Roads
 onready var _doodads := $Doodads
 onready var _survivors := $Survivors
+onready var _soldiers := $Soldiers
 onready var _top_place_position := $PlacePositions/Top
 onready var _right_place_position := $PlacePositions/Right
 onready var _bottom_place_position := $PlacePositions/Bottom
@@ -137,6 +139,14 @@ func on_body_entered(body : Node, neighbour : int, move_to : int) -> void:
 				survivor.rescue()
 
 	if room_type == Constants.rooms_types.last and neighbour == sanctuary_side:
+		for survivor in get_tree().get_nodes_in_group("survivors"):
+			if survivor.status == Constants.survivors_statuses.following:
+				if not survivor.character:
+					continue
+
+				Screens.current_screen_node._dialog.show_pleed_dialog(survivor.character)
+				return
+
 		Audio.fade_out()
 		Screens.change_screen(Constants.screens.summary)
 
@@ -220,7 +230,11 @@ func show() -> void:
 			_left_sanctuary.is_ending = true
 
 func hide() -> void:
-	pass
+	for soldier in get_tree().get_nodes_in_group("soldiers"):
+		if soldier.status == Constants.soldiers_statuses.captured:
+			continue
+
+		soldier.reset()
 
 func spawn_survivors() -> void:
 	randomize()
@@ -256,3 +270,40 @@ func spawn_survivors() -> void:
 			coordinates.x * Constants.sprites_width + round(Constants.sprites_width / 2.0),
 			coordinates.y * Constants.sprites_width + round(Constants.sprites_width / 2.0)
 		)
+
+func spawn_soldiers() -> void:
+	randomize()
+
+	var used_coordinates := []
+
+	for i in rand_range(Constants.soldiers_min_per_room, Constants.soldiers_max_per_room):
+		var new_soldier : Soldier = soldier_scenes[randi() % soldier_scenes.size()].instance()
+		_soldiers.add_child(new_soldier)
+
+		var potential_characters := []
+
+		for character in Generation.characters_data:
+			if "soldier" in character.name:
+				if new_soldier.is_in_group("males") and "-male-" in character.name:
+					potential_characters.append(character)
+				if new_soldier.is_in_group("females") and "-female-" in character.name:
+					potential_characters.append(character)
+
+		if potential_characters.size() > 0:
+			new_soldier.character = potential_characters[randi() % potential_characters.size()]
+
+		var coordinates = Vector2(randi() % Constants.tiles_width, randi() % Constants.tiles_width)
+		var location = layout[coordinates.y][coordinates.x]
+
+		while location != Constants.tiles_types.road or used_coordinates.has(coordinates):
+			coordinates = Vector2(randi() % Constants.tiles_width, randi() % Constants.tiles_width)
+			location = layout[coordinates.y][coordinates.x]
+
+		used_coordinates.append(coordinates)
+
+		new_soldier.position = Vector2(
+			coordinates.x * Constants.sprites_width + round(Constants.sprites_width / 2.0),
+			coordinates.y * Constants.sprites_width + round(Constants.sprites_width / 2.0)
+		)
+
+		new_soldier.starting_position = new_soldier.position

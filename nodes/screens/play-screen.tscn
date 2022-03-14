@@ -63,6 +63,11 @@ one_shot = true
 wait_time = 0.25
 autostart = true
 
+[node name="ChasePlayerTimer" type="Timer" parent="." index="6"]
+wait_time = 0.25
+autostart = true
+
 [connection signal="timeout" from="RestartMusicTimer" to="." method="_on_RestartMusicTimer_timeout"]
 [connection signal="timeout" from="SurvivorDialogTimer" to="." method="_on_SurvivorDialogTimer_timeout"]
 [connection signal="timeout" from="UpdateStatusTimer" to="." method="_on_UpdateStatusTimer_timeout"]
+[connection signal="timeout" from="ChasePlayerTimer" to="." method="_on_ChasePlayerTimer_timeout"]

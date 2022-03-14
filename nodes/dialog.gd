@@ -127,3 +127,155 @@ func show_rescued_dialog(survivor_character : Dictionary) -> void:
 	}
 
 	_background.add_child(current_dialog)
+
+func show_captured_dialog(survivor_character : Dictionary, soldier_character : Dictionary) -> void:
+	randomize()
+
+	show()
+
+	current_dialog = Dialogic.start("")
+	current_dialog.connect("dialogic_signal", self, "on_dialogic_signal")
+
+	current_dialog.dialog_node.dialog_script = {
+		"events":[
+			{
+				"action": "join",
+				"character": soldier_character.file,
+				"event_id": "dialogic_002",
+				"mirror": false,
+				"portrait": "",
+				"position": {
+					"0": false,
+					"1": false,
+					"2": false,
+					"3": true,
+					"4": false
+				}
+			},
+			{
+				"character": soldier_character.file,
+				"event_id": "dialogic_001",
+				"portrait": "",
+				"text": "What are you doing here? Come with me!"
+			},
+			{
+				"action": "join",
+				"character": survivor_character.file,
+				"event_id": "dialogic_002",
+				"mirror": false,
+				"portrait": "",
+				"position": {
+					"0": false,
+					"1": true,
+					"2": false,
+					"3": false,
+					"4": false
+				}
+			},
+			{
+				"character": survivor_character.file,
+				"event_id": "dialogic_001",
+				"portrait": "",
+				"text": "Please don't hurt me."
+			},
+			{
+				"action": "leaveall",
+				"character": "[All]",
+				"event_id": "dialogic_003"
+			},
+			{
+				"emit_signal": "hide",
+				"event_id": "dialogic_040"
+			},
+		],
+	}
+
+	_background.add_child(current_dialog)
+
+func show_harass_dialog(soldier_character : Dictionary) -> void:
+	randomize()
+
+	show()
+
+	current_dialog = Dialogic.start("")
+	current_dialog.connect("dialogic_signal", self, "on_dialogic_signal")
+
+	current_dialog.dialog_node.dialog_script = {
+		"events":[
+			{
+				"action": "join",
+				"character": soldier_character.file,
+				"event_id": "dialogic_002",
+				"mirror": false,
+				"portrait": "",
+				"position": {
+					"0": false,
+					"1": false,
+					"2": false,
+					"3": true,
+					"4": false
+				}
+			},
+			{
+				"character": soldier_character.file,
+				"event_id": "dialogic_001",
+				"portrait": "",
+				"text": "If I catch you again, I will shoot you"
+			},
+			{
+				"action": "leaveall",
+				"character": "[All]",
+				"event_id": "dialogic_003"
+			},
+			{
+				"emit_signal": "hide",
+				"event_id": "dialogic_040"
+			},
+		],
+	}
+
+	_background.add_child(current_dialog)
+
+func show_pleed_dialog(survivor_character : Dictionary) -> void:
+	randomize()
+
+	show()
+
+	current_dialog = Dialogic.start("")
+	current_dialog.connect("dialogic_signal", self, "on_dialogic_signal")
+
+	current_dialog.dialog_node.dialog_script = {
+		"events":[
+			{
+				"action": "join",
+				"character": survivor_character.file,
+				"event_id": "dialogic_002",
+				"mirror": false,
+				"portrait": "",
+				"position": {
+					"0": false,
+					"1": true,
+					"2": false,
+					"3": false,
+					"4": false
+				}
+			},
+			{
+				"character": survivor_character.file,
+				"event_id": "dialogic_001",
+				"portrait": "",
+				"text": "You cna't leave me here"
+			},
+			{
+				"action": "leaveall",
+				"character": "[All]",
+				"event_id": "dialogic_003"
+			},
+			{
+				"emit_signal": "hide",
+				"event_id": "dialogic_040"
+			},
+		],
+	}
+
+	_background.add_child(current_dialog)

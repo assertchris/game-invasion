@@ -1,0 +1,38 @@
+{
+	"events": [
+		{
+			"action": "join",
+			"character": "character-1647174339.json",
+			"event_id": "dialogic_002",
+			"mirror": false,
+			"portrait": "",
+			"position": {
+				"0": false,
+				"1": true,
+				"2": false,
+				"3": false,
+				"4": false
+			}
+		},
+		{
+			"character": "character-1647174339.json",
+			"event_id": "dialogic_001",
+			"portrait": "",
+			"text": "You cna't leave me here"
+		},
+		{
+			"action": "leaveall",
+			"character": "[All]",
+			"event_id": "dialogic_003"
+		},
+		{
+			"emit_signal": "hide",
+			"event_id": "dialogic_040"
+		}
+	],
+	"metadata": {
+		"dialogic-version": "1.3",
+		"file": "timeline-1647276776.json",
+		"name": "example-survivor-pleed-timeline"
+	}
+}

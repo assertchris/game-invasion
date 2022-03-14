@@ -39,8 +39,8 @@ margin_right = 61.0
 margin_bottom = 17.0
 theme = ExtResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[center]Hope: 100[/center]"
-text = "Hope: 100"
+bbcode_text = "[center]Hope: TBD[/center]"
+text = "Hope: TBD"
 fit_content_height = true
 
 [node name="ContinueButton" type="Button" parent="Center/Items" index="1"]
