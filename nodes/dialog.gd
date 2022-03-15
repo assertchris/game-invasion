@@ -20,6 +20,38 @@ const rescued_survivor_lines := [
 	"I can breathe, now",
 ]
 
+const captured_soldier_lines := [
+	"What are you doing here? Come with me",
+	"Where do you think you're going?",
+	"I have orders to take you in",
+	"Don't make this difficult",
+	"Have I seen you before?",
+]
+
+const captured_survivor_lines := [
+	"Please don't hurt me",
+	"I will comply",
+	"Can I bring my things?",
+	"Where are you taking me?",
+	"I don't want to get hurt",
+]
+
+const pleeding_survivor_lines := [
+	"You can't leave me here",
+	"Where will I go?",
+	"I don't think it's safe here",
+	"What am I supposed to do now?",
+	"Did I say something wrong?",
+]
+
+const harassing_soldier_lines := [
+	"If I see you again I'll shoot you",
+	"Get the hell out of here",
+	"Leave now!",
+	"You're nothing",
+	"I hate your kind",
+]
+
 func _ready() -> void:
 	_background.rect_global_position.y = 180
 
@@ -156,7 +188,7 @@ func show_captured_dialog(survivor_character : Dictionary, soldier_character : D
 				"character": soldier_character.file,
 				"event_id": "dialogic_001",
 				"portrait": "",
-				"text": "What are you doing here? Come with me!"
+				"text": captured_soldier_lines[randi() % captured_soldier_lines.size()],
 			},
 			{
 				"action": "join",
@@ -176,7 +208,7 @@ func show_captured_dialog(survivor_character : Dictionary, soldier_character : D
 				"character": survivor_character.file,
 				"event_id": "dialogic_001",
 				"portrait": "",
-				"text": "Please don't hurt me."
+				"text": captured_survivor_lines[randi() % captured_survivor_lines.size()],
 			},
 			{
 				"action": "leaveall",
@@ -220,7 +252,7 @@ func show_harass_dialog(soldier_character : Dictionary) -> void:
 				"character": soldier_character.file,
 				"event_id": "dialogic_001",
 				"portrait": "",
-				"text": "If I catch you again, I will shoot you"
+				"text": harassing_soldier_lines[randi() % harassing_soldier_lines.size()],
 			},
 			{
 				"action": "leaveall",
@@ -264,7 +296,7 @@ func show_pleed_dialog(survivor_character : Dictionary) -> void:
 				"character": survivor_character.file,
 				"event_id": "dialogic_001",
 				"portrait": "",
-				"text": "You cna't leave me here"
+				"text": pleeding_survivor_lines[randi() % pleeding_survivor_lines.size()],
 			},
 			{
 				"action": "leaveall",
