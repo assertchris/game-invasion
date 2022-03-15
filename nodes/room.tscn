@@ -95,16 +95,16 @@ shape = SubResource( 4 )
 
 [node name="PlacePositions" type="Node2D" parent="."]
 
-[node name="Top" type="Position2D" parent="PlacePositions"]
+[node name="Top" type="Position2D" parent="PlacePositions" groups=["place-positions"]]
 position = Vector2( 29, 8 )
 
-[node name="Right" type="Position2D" parent="PlacePositions"]
+[node name="Right" type="Position2D" parent="PlacePositions" groups=["place-positions"]]
 position = Vector2( 124, 30 )
 
-[node name="Bottom" type="Position2D" parent="PlacePositions"]
+[node name="Bottom" type="Position2D" parent="PlacePositions" groups=["place-positions"]]
 position = Vector2( 102, 124 )
 
-[node name="Left" type="Position2D" parent="PlacePositions"]
+[node name="Left" type="Position2D" parent="PlacePositions" groups=["place-positions"]]
 position = Vector2( 8, 103 )
 
 [node name="Arrows" type="Node2D" parent="."]

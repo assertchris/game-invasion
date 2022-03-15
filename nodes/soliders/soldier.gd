@@ -118,8 +118,8 @@ func _on_PatrolTimer_timeout() -> void:
 		coordinates.y * Constants.sprites_width + round(Constants.sprites_width / 2.0)
 	)
 
-	var path = Variables.current_navigation.get_simple_path(position, new_position, false)
-	set_path(path)
+	var new_path = Variables.current_navigation.get_simple_path(position, new_position, false)
+	set_path(new_path)
 
 func reset() -> void:
 	set_path(PoolVector2Array())

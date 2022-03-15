@@ -6,14 +6,14 @@ onready var _quit_button := $Center/Items/QuitButton
 func _ready() -> void:
 	Audio.play_menu_music()
 
-	if OS.has_feature("HTML5"):
-		_quit_button.visible = false
+	_quit_button.visible = not OS.has_feature("HTML5")
+	_continue_button.visible = Variables.has_saved()
 
 func _on_ContinueButton_pressed() -> void:
 	Screens.change_screen(Constants.screens.play)
 
 func _on_NewGameButton_pressed() -> void:
-	# TODO reset variables
+	Variables.reset()
 	Screens.change_screen(Constants.screens.play)
 
 func _on_SettingsButton_pressed() -> void:

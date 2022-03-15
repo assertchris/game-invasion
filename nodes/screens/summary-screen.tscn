@@ -5,7 +5,7 @@
 [ext_resource path="res://resources/pixel-rpg.tres" type="DynamicFont" id=3]
 [ext_resource path="res://resources/menu-theme.tres" type="Theme" id=4]
 
-[sub_resource type="StyleBoxFlat" id=1]
+[sub_resource type="StyleBoxFlat" id=3]
 content_margin_left = 4.0
 content_margin_right = 4.0
 content_margin_top = 4.0
@@ -14,11 +14,11 @@ bg_color = Color( 0.6, 0.6, 0.6, 0 )
 [sub_resource type="Theme" id=2]
 Button/constants/hseparation = 0
 Button/fonts/font = ExtResource( 3 )
-Button/styles/disabled = SubResource( 1 )
-Button/styles/focus = SubResource( 1 )
-Button/styles/hover = SubResource( 1 )
-Button/styles/normal = SubResource( 1 )
-Button/styles/pressed = SubResource( 1 )
+Button/styles/disabled = SubResource( 3 )
+Button/styles/focus = SubResource( 3 )
+Button/styles/hover = SubResource( 3 )
+Button/styles/normal = SubResource( 3 )
+Button/styles/pressed = SubResource( 3 )
 
 [node name="SummaryScreen" instance=ExtResource( 1 )]
 script = ExtResource( 2 )
@@ -29,33 +29,43 @@ margin_bottom = 180.0
 
 [node name="Items" type="VBoxContainer" parent="Center" index="0"]
 margin_left = 59.0
-margin_top = 59.0
+margin_top = 47.0
 margin_right = 120.0
-margin_bottom = 120.0
+margin_bottom = 133.0
 custom_constants/separation = 8
 
-[node name="Score" type="RichTextLabel" parent="Center/Items" index="0"]
+[node name="Hope" type="RichTextLabel" parent="Center/Items" index="0"]
 margin_right = 61.0
 margin_bottom = 17.0
 theme = ExtResource( 4 )
 bbcode_enabled = true
-bbcode_text = "[center]Hope: TBD[/center]"
-text = "Hope: TBD"
+bbcode_text = "[center]Hope: 100[/center]"
+text = "Hope: 100"
 fit_content_height = true
 
-[node name="ContinueButton" type="Button" parent="Center/Items" index="1"]
+[node name="Rescued" type="RichTextLabel" parent="Center/Items" index="1"]
 margin_top = 25.0
 margin_right = 61.0
-margin_bottom = 39.0
+margin_bottom = 42.0
+theme = ExtResource( 4 )
+bbcode_enabled = true
+bbcode_text = "[center]Rescued: 0[/center]"
+text = "Rescued: 0"
+fit_content_height = true
+
+[node name="ContinueButton" type="Button" parent="Center/Items" index="2"]
+margin_top = 50.0
+margin_right = 61.0
+margin_bottom = 64.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 theme = SubResource( 2 )
 text = "continue"
 
-[node name="SaveAndQuitButton" type="Button" parent="Center/Items" index="2"]
-margin_top = 47.0
+[node name="SaveAndQuitButton" type="Button" parent="Center/Items" index="3"]
+margin_top = 72.0
 margin_right = 61.0
-margin_bottom = 61.0
+margin_bottom = 86.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 theme = SubResource( 2 )

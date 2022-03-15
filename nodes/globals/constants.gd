@@ -110,6 +110,12 @@ enum soldiers_statuses {
 	captured,
 }
 
+const hope_starting := 100
+const hope_decay_amount := 1
+const hope_harass_amount := 15
+const hope_capture_amount := 10
+const hope_rescue_amount := 10
+
 enum screens {
 	none,
 	credits,
@@ -130,3 +136,6 @@ onready var screens_scenes := {
 	screens.settings : settings_scene,
 	screens.summary : summary_scene,
 }
+
+const save_file_path := "user://invasion.save"
+const save_file_key := ":2q*%}Nb=cP3FuY9>]u^x@iW"
