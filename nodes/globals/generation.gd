@@ -40,17 +40,17 @@ func get_room_layout() -> Array:
 
 	return room
 
-func add_room_tiles(parent, layout: Array) -> void:
+func add_room_tiles(tile_parent, layout: Array) -> void:
 	for y in range(Constants.tiles_width):
 		for x in range(Constants.tiles_width):
 			if layout[y][x] in Constants.tiles_is_not_tile:
 				continue
 
 			var name = Constants.tiles_set_names[layout[y][x]]
-			var id = parent.tile_set.find_tile_by_name(name)
-			parent.set_cell(x, y, id)
+			var id = tile_parent.tile_set.find_tile_by_name(name)
+			tile_parent.set_cell(x, y, id)
 
-func add_room_doodads(parent, layout: Array) -> void:
+func add_room_doodads(doodad_parent, layout: Array) -> void:
 	var ignored := []
 
 	for y in range(Constants.tiles_width):
@@ -85,7 +85,7 @@ func add_room_doodads(parent, layout: Array) -> void:
 				doodad_size = Vector2(w, h)
 
 			var doodad = Constants.tiles_doodads[layout[y][x]].instance()
-			parent.add_child(doodad)
+			doodad_parent.add_child(doodad)
 			doodad.doodad_size = doodad_size
 
 			doodad.position = Vector2(

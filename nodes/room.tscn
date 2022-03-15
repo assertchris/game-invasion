@@ -52,7 +52,7 @@ __meta__ = {
 survivor_scenes = [ ExtResource( 5 ), ExtResource( 6 ), ExtResource( 7 ) ]
 soldier_scenes = [ ExtResource( 9 ), ExtResource( 10 ) ]
 
-[node name="Roads" type="TileMap" parent="."]
+[node name="Tiles" type="TileMap" parent="."]
 tile_set = ExtResource( 2 )
 cell_size = Vector2( 12, 12 )
 cell_custom_transform = Transform2D( 12, 0, 0, 12, 0, 0 )

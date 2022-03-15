@@ -147,7 +147,7 @@ func _on_UnstuckButton_pressed() -> void:
 	Variables.current_player.global_position = nearest_point.global_position
 
 func _on_UnstuckTimer_timeout() -> void:
-	if Variables.current_clicks > 2:
+	if Variables.current_clicks > 5:
 		_unstuck_button.visible = true
 	else:
 		_unstuck_button.visible = false

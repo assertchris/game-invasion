@@ -4,7 +4,7 @@ class_name GameRoom
 export (Array, PackedScene) var survivor_scenes
 export (Array, PackedScene) var soldier_scenes
 
-onready var _roads := $Roads
+onready var _tiles := $Tiles
 onready var _doodads := $Doodads
 onready var _survivors := $Survivors
 onready var _soldiers := $Soldiers
@@ -30,10 +30,10 @@ var sanctuary_side : int
 func _ready() -> void:
 	layout = Generation.get_room_layout()
 
-	Generation.add_room_tiles(_roads, layout)
+	Generation.add_room_tiles(_tiles, layout)
 	Generation.add_room_doodads(_doodads, layout)
 
-	_roads.update_bitmask_region(Vector2(0, 0), Vector2(Constants.tiles_width, Constants.tiles_width))
+	_tiles.update_bitmask_region(Vector2(0, 0), Vector2(Constants.tiles_width, Constants.tiles_width))
 
 func get_neighbor_positions() -> Dictionary:
 	return {

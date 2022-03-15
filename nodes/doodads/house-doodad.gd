@@ -1,12 +1,5 @@
 extends Doodad
 
-onready var _2x2 := $"2x2"
-onready var _2x3 := $"2x3"
-onready var _3x2 := $"3x2"
-onready var _3x3 := $"3x3"
-onready var _3x4 := $"3x4"
-onready var _3x5 := $"3x5"
-
 func _on_DrawTimer_timeout() -> void:
 	randomize()
 
