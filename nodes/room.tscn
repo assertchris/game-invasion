@@ -97,16 +97,16 @@ shape = SubResource( 4 )
 [node name="PlacePositions" type="Node2D" parent="."]
 
 [node name="Top" type="Position2D" parent="PlacePositions" groups=["place-positions"]]
-position = Vector2( 66, 24 )
+position = Vector2( 66, 12 )
 
 [node name="Right" type="Position2D" parent="PlacePositions" groups=["place-positions"]]
-position = Vector2( 108, 66 )
+position = Vector2( 120, 66 )
 
 [node name="Bottom" type="Position2D" parent="PlacePositions" groups=["place-positions"]]
-position = Vector2( 66, 108 )
+position = Vector2( 66, 121 )
 
 [node name="Left" type="Position2D" parent="PlacePositions" groups=["place-positions"]]
-position = Vector2( 24, 66 )
+position = Vector2( 12, 66 )
 
 [node name="Arrows" type="Node2D" parent="."]
 
@@ -133,13 +133,13 @@ texture = SubResource( 8 )
 [node name="Sanctuaries" type="YSort" parent="."]
 
 [node name="Top" parent="Sanctuaries" instance=ExtResource( 8 )]
-position = Vector2( 66, -30 )
+position = Vector2( 66, -32 )
 
 [node name="Right" parent="Sanctuaries" instance=ExtResource( 8 )]
 position = Vector2( 168, 66 )
 
 [node name="Bottom" parent="Sanctuaries" instance=ExtResource( 8 )]
-position = Vector2( 66, 162 )
+position = Vector2( 66, 164 )
 z_index = 5
 
 [node name="Left" parent="Sanctuaries" instance=ExtResource( 8 )]

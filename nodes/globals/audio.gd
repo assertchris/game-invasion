@@ -9,6 +9,15 @@ onready var _sound_player := $SoundPlayer
 onready var _restart_menu_music_timer := $RestartMenuMusicTimer
 
 var is_playing_menu_music := false
+var sounds_bus := AudioServer.get_bus_index("Sounds")
+var music_bus := AudioServer.get_bus_index("Music")
+
+func _ready() -> void:
+	if not Variables.has_loaded:
+		Variables.load_variables()
+
+	AudioServer.set_bus_volume_db(sounds_bus, linear2db(Variables.stored.volume.sounds))
+	AudioServer.set_bus_volume_db(music_bus, linear2db(Variables.stored.volume.music))
 
 func play_music(music_stream: AudioStream) -> void:
 	_music_player.stop()

@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://nodes/screens/screen.tscn" type="PackedScene" id=1]
 [ext_resource path="res://nodes/screens/settings-screen.gd" type="Script" id=2]
 [ext_resource path="res://resources/pixel-rpg.tres" type="DynamicFont" id=3]
+[ext_resource path="res://resources/menu-theme.tres" type="Theme" id=4]
 
 [sub_resource type="StyleBoxFlat" id=3]
 content_margin_left = 4.0
@@ -27,18 +28,75 @@ margin_right = 180.0
 margin_bottom = 180.0
 
 [node name="Items" type="VBoxContainer" parent="Center" index="0"]
-margin_left = 77.0
-margin_top = 83.0
-margin_right = 102.0
-margin_bottom = 97.0
+margin_left = 29.0
+margin_top = 61.0
+margin_right = 151.0
+margin_bottom = 119.0
 custom_constants/separation = 8
 
-[node name="BackButton" type="Button" parent="Center/Items" index="0"]
-margin_right = 25.0
+[node name="MusicVolume" type="HBoxContainer" parent="Center/Items" index="0"]
+margin_right = 122.0
 margin_bottom = 14.0
+alignment = 2
+
+[node name="Label" type="Label" parent="Center/Items/MusicVolume" index="0"]
+margin_right = 58.0
+margin_bottom = 14.0
+theme = ExtResource( 4 )
+text = "music volume"
+
+[node name="Center" type="CenterContainer" parent="Center/Items/MusicVolume" index="1"]
+margin_left = 62.0
+margin_right = 122.0
+margin_bottom = 14.0
+
+[node name="Slider" type="HSlider" parent="Center/Items/MusicVolume/Center" index="0"]
+margin_top = 5.0
+margin_right = 60.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 60, 0 )
+mouse_default_cursor_shape = 2
+theme = ExtResource( 4 )
+max_value = 1.0
+step = 0.1
+
+[node name="SoundsVolume" type="HBoxContainer" parent="Center/Items" index="1"]
+margin_top = 22.0
+margin_right = 122.0
+margin_bottom = 36.0
+alignment = 2
+
+[node name="Label" type="Label" parent="Center/Items/SoundsVolume" index="0"]
+margin_left = 9.0
+margin_right = 58.0
+margin_bottom = 14.0
+theme = ExtResource( 4 )
+text = "sfx volume"
+
+[node name="Center" type="CenterContainer" parent="Center/Items/SoundsVolume" index="1"]
+margin_left = 62.0
+margin_right = 122.0
+margin_bottom = 14.0
+
+[node name="Slider" type="HSlider" parent="Center/Items/SoundsVolume/Center" index="0"]
+margin_top = 5.0
+margin_right = 60.0
+margin_bottom = 9.0
+rect_min_size = Vector2( 60, 0 )
+mouse_default_cursor_shape = 2
+theme = ExtResource( 4 )
+max_value = 1.0
+step = 0.1
+
+[node name="BackButton" type="Button" parent="Center/Items" index="2"]
+margin_top = 44.0
+margin_right = 122.0
+margin_bottom = 58.0
 mouse_default_cursor_shape = 2
 size_flags_horizontal = 3
 theme = SubResource( 2 )
 text = "back"
 
+[connection signal="value_changed" from="Center/Items/MusicVolume/Center/Slider" to="." method="_on_Music_Slider_value_changed"]
+[connection signal="value_changed" from="Center/Items/SoundsVolume/Center/Slider" to="." method="_on_Sounds_Slider_value_changed"]
 [connection signal="pressed" from="Center/Items/BackButton" to="." method="_on_BackButton_pressed"]

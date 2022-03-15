@@ -90,12 +90,16 @@ config/name="Invasion"
 run/main_scene="res://nodes/screens/menu-screen.tscn"
 config/icon="res://images/icon.png"
 
+[audio]
+
+default_bus_layout="res://resources/audio-bus-layout.tres"
+
 [autoload]
 
 Constants="*res://nodes/globals/constants.tscn"
 Variables="*res://nodes/globals/variables.tscn"
-Generation="*res://nodes/globals/generation.tscn"
 Audio="*res://nodes/globals/audio.tscn"
+Generation="*res://nodes/globals/generation.tscn"
 Screens="*res://nodes/globals/screens.tscn"
 
 [display]

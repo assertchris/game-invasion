@@ -1,8 +1,36 @@
-[gd_resource type="Theme" load_steps=4 format=2]
+[gd_resource type="Theme" load_steps=10 format=2]
 
 [ext_resource path="res://resources/pixel-rpg.tres" type="DynamicFont" id=1]
+[ext_resource path="res://images/sprites.png" type="Texture" id=2]
 
 [sub_resource type="StyleBoxFlat" id=1]
+content_margin_left = 4.0
+content_margin_right = 4.0
+content_margin_top = 4.0
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="AtlasTexture" id=7]
+atlas = ExtResource( 2 )
+region = Rect2( 149, 28, 3, 4 )
+margin = Rect2( 0, -1, 0, 0 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0.6, 0.6, 0.6, 0 )
+
+[sub_resource type="AtlasTexture" id=4]
+atlas = ExtResource( 2 )
+region = Rect2( 133, 30, 10, 2 )
+
+[sub_resource type="StyleBoxTexture" id=5]
+texture = SubResource( 4 )
+region_rect = Rect2( 0, 0, 10, 2 )
+margin_left = 1.0
+margin_right = 1.0
+margin_top = 2.0
+expand_margin_left = 2.0
+expand_margin_right = 2.0
+
+[sub_resource type="StyleBoxFlat" id=3]
 content_margin_left = 4.0
 content_margin_right = 4.0
 content_margin_top = 4.0
@@ -22,7 +50,14 @@ Button/styles/focus = SubResource( 1 )
 Button/styles/hover = SubResource( 1 )
 Button/styles/normal = SubResource( 1 )
 Button/styles/pressed = SubResource( 1 )
+HSlider/icons/grabber = SubResource( 7 )
+HSlider/icons/grabber_disabled = SubResource( 7 )
+HSlider/icons/grabber_highlight = SubResource( 7 )
+HSlider/styles/grabber_area = SubResource( 6 )
+HSlider/styles/grabber_area_highlight = SubResource( 6 )
+HSlider/styles/slider = SubResource( 5 )
 Label/fonts/font = ExtResource( 1 )
+Label/styles/normal = SubResource( 3 )
 RichTextLabel/fonts/bold_font = ExtResource( 1 )
 RichTextLabel/fonts/bold_italics_font = ExtResource( 1 )
 RichTextLabel/fonts/italics_font = ExtResource( 1 )
