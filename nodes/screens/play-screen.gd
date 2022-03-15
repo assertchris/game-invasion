@@ -42,7 +42,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		return
 
 	if event is InputEventMouseButton:
-		if event.is_pressed():
+		if event.is_action("ui_left_click"):
 			randomize()
 
 			var position = get_local_mouse_position() - _anchor.rect_position

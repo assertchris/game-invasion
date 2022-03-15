@@ -64,7 +64,25 @@ func add_room_doodads(parent, layout: Array) -> void:
 			var doodad_size : Vector2
 
 			if layout[y][x] in Constants.tiles_grouped:
-				pass
+				var h := 0
+				var w := 0
+
+				for i in range(5):
+					if layout[y + i][x] != layout[y][x]:
+						break
+
+					for j in range(5):
+						if layout[y + i][x + j] != layout[y][x]:
+							break
+
+						ignored.append(Vector2(x + j, y + i))
+
+						if i == 0:
+							w += 1
+
+					h += 1
+
+				doodad_size = Vector2(w, h)
 
 			var doodad = Constants.tiles_doodads[layout[y][x]].instance()
 			parent.add_child(doodad)
